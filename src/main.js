@@ -6,13 +6,15 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
-new Vue({
+/* eslint-disable no-unused-vars */
+var vm = new Vue({
   el: '#app',
   router,
   template: '<App/>',
   components: { App }
 })
+/* eslint-enable */
+
 // [].forEach.call(document.querySelectorAll('*'), function (a) {
 //   a.style.outline = '1px solid #' + (~~(Math.random() * (1 << 24))).toString(16)
 // })
