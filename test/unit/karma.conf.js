@@ -21,16 +21,16 @@ module.exports = function (config) {
     },
     webpack: webpackConfig,
     plugins: [
-     'karma-webpack',
-     'karma-sourcemap-loader',
-     'karma-mocha',
-     'karma-chai',
-     'karma-sinon-chai',
-     'karma-chrome-launcher',
+      'karma-webpack',
+      'karma-sourcemap-loader',
+      'karma-mocha',
+      'karma-chai',
+      'karma-sinon-chai',
+      'karma-chrome-launcher',
      // 'karma-phantomjs-launcher',
-     'karma-spec-reporter',
-     'karma-coverage'
-   ],
+      'karma-spec-reporter',
+      'karma-coverage'
+    ],
     webpackMiddleware: {
       noInfo: true
     },
