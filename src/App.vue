@@ -2,15 +2,19 @@
   <div id="app">
     <head-nav></head-nav>
     <router-view></router-view>
+    <foot></foot>
   </div>
 </template>
 
 <script>
 import HeadNav from './components/common/HeadNav.vue' // 引用非路由控制的公共组件
+import Foot from './components/common/Foot.vue'
+
 export default {
   name: 'app',
   components: {  // 引用公共组件
-    HeadNav
+    HeadNav, // eslint-disable-line
+    Foot // eslint-disable-line
   }
 }
 </script>
