@@ -3,10 +3,10 @@
     <a class="logo vertical-center-content">{{ title }}</a>
     <nav class="nav">
       <ul>
-        <li><a class="nav-link active" href="#">blog</a></li>
-        <li><a class="nav-link" href="#">timeline</a></li>
-        <li><a class="nav-link" href="#">images</a></li>
-        <li><a class="nav-link" href="#">about</a></li>
+        <li v-for="(item, index) in items">
+          <router-link class="nav-link" :class="{ active: index === selected }" @click="choose(index)" :to="item.name">{{item.name}}</router-link>
+          <!-- <a class="nav-link" :class="{ active: index === selected }" @click="choose(index)" :href="item.url">{{item.name}}</a> -->
+        </li>
       </ul>
     </nav>
   </header>
@@ -17,8 +17,30 @@ export default {
   name: 'head-nav',
   data () {
     return {
-      title: 'joris\' blog'
+      title: 'joris\' blog',
+      items: [
+        {
+          name: 'Home'
+        },
+        {
+          name: 'TimeLine'
+        },
+        {
+          name: 'Images'
+        },
+        {
+          name: 'About'
+        }
+      ],
+      selected: 0
     }
+  },
+  methods: {
+    choose: function (index) {
+      this.selected = index
+    }
+  },
+  components: {
   }
 }
 </script>

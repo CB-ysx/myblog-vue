@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'home',
+  name: 'Home',
   data () {
     return {
       title: 'this is a home page'
