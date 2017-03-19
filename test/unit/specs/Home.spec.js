@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Home from '@/components/Home'
 import HeadNav from '@/components/common/HeadNav'
+import Foot from '@/components/common/Foot'
 
 describe('Home.vue', () => {
   it('should render correct contents', () => {
@@ -24,8 +25,24 @@ describe('HeadNav.vue', () => {
   })
   it('should correct action', () => {
     const vm = new Constructor().$mount()
-    vm.$children[2].$emit('click')
-    expect(vm.selected)
-      .to.equal(2)
+    for (var i = 0; i < vm.$children.length; i++) {
+      vm.$children[i].$emit('click')
+      expect(vm.selected)
+        .to.equal(i)
+    }
+  })
+})
+
+describe('Foot.vue', () => {
+  const Constructor = Vue.extend(Foot)
+  const vm = new Constructor().$mount()
+  it('should render correct contents', () => {
+    expect(vm.$el.querySelector('a').outerText)
+      .to.equal('joris\' blog')
+  })
+  it('should correct Date', () => {
+    let now = new Date().getFullYear()
+    expect(vm.dateNow)
+      .to.equal(now)
   })
 })
