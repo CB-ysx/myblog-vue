@@ -23,14 +23,14 @@ describe('HeadNav.vue', () => {
     expect(vm.$el.querySelectorAll('li').length)
       .to.equal(4)
   })
-  it('should correct action', () => {
-    const vm = new Constructor().$mount()
-    for (var i = 0; i < vm.$children.length; i++) {
-      vm.$children[i].$emit('click')
-      expect(vm.selected)
-        .to.equal(i)
-    }
-  })
+  // it('should correct action', () => {
+  //   const vm = new Constructor().$mount()
+  //   for (var i = 0; i < vm.$children.length; i++) {
+  //     vm.$children[i].$emit('click')
+  //     expect(vm.selected)
+  //       .to.equal(i)
+  //   }
+  // })
 })
 
 describe('Foot.vue', () => {

@@ -4,8 +4,7 @@
     <nav class="nav">
       <ul>
         <li v-for="(item, index) in items">
-          <router-link class="nav-link" :class="{ active: index === selected }" @click="choose(index)" :to="item.name">{{item.name}}</router-link>
-          <!-- <a class="nav-link" :class="{ active: index === selected }" @click="choose(index)" :href="item.url">{{item.name}}</a> -->
+          <router-link class="nav-link" :to="item.name">{{item.name}}</router-link>
         </li>
       </ul>
     </nav>
@@ -31,13 +30,7 @@ export default {
         {
           name: 'About'
         }
-      ],
-      selected: 0
-    }
-  },
-  methods: {
-    choose: function (index) {
-      this.selected = index
+      ]
     }
   },
   components: {
@@ -47,10 +40,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-  .container{
-    max-width: 840px;
-    margin: 0 auto;
-  }
   header{
     padding: 1em 0.5em;
     box-shadow: 0 0 4px rgba(0,0,0,.25);
@@ -66,9 +55,6 @@ export default {
       font-weight: 500;
     }
   }
-  .content{
-    padding-top: 60px;
-  }
   .nav{
     display: inline-block;
     float: right;
@@ -80,7 +66,7 @@ export default {
     text-decoration: none;
     font-weight: 600;
     color: #34495e;
-    &.active,&:hover{
+    &.router-link-active,&:hover{
       border-bottom: 3px solid #42b983;
     }
   }
