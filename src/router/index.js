@@ -4,6 +4,7 @@ import Home from '@/views/Home' // @表示.. ，在webpack中进行了处理
 import TimeLine from '@/views/TimeLine'
 import Images from '@/views/Images'
 import About from '@/views/About'
+import Article from '@/views/Article'
 
 Vue.use(Router)
 
@@ -12,6 +13,10 @@ export default new Router({
     { path: '/Home',
       name: 'Home',
       component: Home
+    },
+    { path: '/Article/:id',
+      name: 'Article',
+      component: Article
     },
     { path: '/TimeLine',
       name: 'TimeLine',

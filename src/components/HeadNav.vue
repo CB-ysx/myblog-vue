@@ -4,7 +4,7 @@
     <nav class="nav">
       <ul>
         <li v-for="(item, index) in items">
-          <router-link class="nav-link" :to="item.name">{{item.name}}</router-link>
+          <router-link class="nav-link" :to="'/'+item.name">{{item.name}}</router-link>
         </li>
       </ul>
     </nav>

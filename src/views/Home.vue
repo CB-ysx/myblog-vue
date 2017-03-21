@@ -2,7 +2,7 @@
   <div class="home container content">
     <div class="main">
       <section class="text-box" v-for="article in articles">
-        <router-link :to="'/article/'+article.id">
+        <router-link :to="'/Article/'+ article.id">
           <h2><span class="title">{{article.title}}</span></h2>
           <span class="date">{{article.date}}</span>
           <section class="text">
