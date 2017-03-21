@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
+import Mock from './models/Mock' // eslint-disable-line
 
 Vue.use(VueResource)
 
