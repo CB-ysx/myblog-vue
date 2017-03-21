@@ -33,5 +33,10 @@ export default {
   }
   footer{
     text-align: center;
+    color: #8b8b8b;
+    a{
+      color: #8b8b8b;
+      text-decoration: underline;
+    }
   }
 </style>
