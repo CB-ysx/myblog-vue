@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import Home from '@/components/Home'
-import HeadNav from '@/components/common/HeadNav'
-import Foot from '@/components/common/Foot'
+import Home from '@/views/Home'
+import HeadNav from '@/components/HeadNav'
+import Foot from '@/components/Foot'
 
 describe('Home.vue', () => {
   it('should render correct contents', () => {

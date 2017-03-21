@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import HeadNav from './components/common/HeadNav.vue' // 引用非路由控制的公共组件
-import Foot from './components/common/Foot.vue'
+import HeadNav from './components/HeadNav.vue' // 引用非路由控制的公共组件
+import Foot from './components/Foot.vue'
 
 export default {
   name: 'app',

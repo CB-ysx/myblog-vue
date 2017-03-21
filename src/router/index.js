@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home' // @表示.. ，在webpack中进行了处理
-import TimeLine from '@/components/TimeLine'
-import Images from '@/components/Images'
-import About from '@/components/About'
+import Home from '@/views/Home' // @表示.. ，在webpack中进行了处理
+import TimeLine from '@/views/TimeLine'
+import Images from '@/views/Images'
+import About from '@/views/About'
 
 Vue.use(Router)
 
