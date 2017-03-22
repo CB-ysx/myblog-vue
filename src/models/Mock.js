@@ -6,7 +6,7 @@ import Mock from 'mockjs'
 Mock.mock('/articles', (ops) => {
   return pages.data
 })
-Mock.mock('/article', (ops) => {
+Mock.mock(/\/article\//, (ops) => {
   return page.data
 })
 Mock.mock('/time-line', (ops) => {
