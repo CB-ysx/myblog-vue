@@ -1,19 +1,30 @@
 import Vue from 'vue'
 import Home from '@/views/Home'
+import Article from '@/views/Article'
 import HeadNav from '@/components/HeadNav'
 import Foot from '@/components/Foot'
 
+// Home.vue test case
 describe('Home.vue', () => {
   it('should render correct contents', () => {
     const Constructor = Vue.extend(Home)
     const vm = new Constructor().$mount()
-    // expect(vm.$el.querySelector('.home').textContent)
-    //   .to.equal('this is a home page')
-    expect(vm.$el.outerText)
-      .to.match(/this is a home page/)
+    expect(vm.$el.classList.contains('home'))
+      .to.true
   })
 })
 
+// Article.vue test case
+describe('Article.vue', () => {
+  it('should render correct contents', () => {
+    const Constructor = Vue.extend(Article)
+    const vm = new Constructor().$mount()
+    expect(vm.$el.classList.contains('article'))
+      .to.true
+  })
+})
+
+// HeadNav.vue test case
 describe('HeadNav.vue', () => {
   const Constructor = Vue.extend(HeadNav)
   it('should render correct contents', () => {
@@ -23,16 +34,9 @@ describe('HeadNav.vue', () => {
     expect(vm.$el.querySelectorAll('li').length)
       .to.equal(4)
   })
-  // it('should correct action', () => {
-  //   const vm = new Constructor().$mount()
-  //   for (var i = 0; i < vm.$children.length; i++) {
-  //     vm.$children[i].$emit('click')
-  //     expect(vm.selected)
-  //       .to.equal(i)
-  //   }
-  // })
 })
 
+// Foot.vue test case
 describe('Foot.vue', () => {
   const Constructor = Vue.extend(Foot)
   const vm = new Constructor().$mount()
