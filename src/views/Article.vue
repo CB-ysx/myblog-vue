@@ -1,10 +1,12 @@
 <template>
   <div class="article container content">
+    <link href="//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <div class="main">
       <article>
         <h1 class="title">{{ article.title }}</h1>
         <span class="date">{{ article.date }}</span>
-        <section class="text" v-html="markdownHtml(article.contents)"></section>
+        <section class="text markdown-body" v-html="markdownHtml(article.contents)"></section>
       </article>
     </div>
   </div>
