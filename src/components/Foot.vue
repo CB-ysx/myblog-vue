@@ -34,6 +34,7 @@ export default {
   footer{
     text-align: center;
     color: #8b8b8b;
+    padding: 0.5em;
     a{
       color: #8b8b8b;
       text-decoration: underline;
