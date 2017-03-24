@@ -1,5 +1,7 @@
 import Mock from 'mockjs'
 
+let Random = Mock.Random
+
 /**
  * Methods
  */
@@ -18,6 +20,10 @@ Mock.mock('/images', (ops) => {
 Mock.mock('/about', (ops) => {
   return about.data
 })
+Mock.mock('/pay', (ops) => {
+  return payImages.data
+})
+
 let art = `Welcome to StackEdit!
 ===================
 
@@ -255,6 +261,19 @@ const about = Mock.mock({
     'name': '@cname',
     'intro': '@cparagraph(5, 10)'
   }]
+})
+// pay-images
+const payImages = Mock.mock({
+  'data': {
+    'alipay': {
+      'url': Random.image('160x160', '#01A0E9', '#FFFFFF', '支付宝'),
+      'title': '支付宝'
+    },
+    'wechat': {
+      'url': Random.image('160x160', '#00C800', '#FFFFFF', '微信付款'),
+      'title': '微信付款'
+    }
+  }
 })
 
 export default Mock
