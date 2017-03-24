@@ -9,9 +9,9 @@
         <section class="text markdown-body" v-html="markdownHtml(article.contents)"></section>
       </article>
       <div class="article-footer center">
-        <p>讨论请发邮件到{{ email }}</p>
+        <p>讨论请发邮件到<a id="email" :href="'mailto:'+ email">{{ email }}</a></p>
         <p>未经授权，禁止转载</p>
-        <div class="btn-pay" @click="showPay">赞赏</div>
+        <div class="btn-pay" id="pay" @click="showPay">赞赏</div>
         <div class="pay-methods" :class="{ hidden: payShow}">
           <template v-for="payImage in payImages">
             <img :src="payImage.url" :alt="payImage.title" :title="payImage.title">
