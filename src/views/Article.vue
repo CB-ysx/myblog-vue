@@ -16,16 +16,19 @@
           <template v-for="payImage in payImages">
             <img :src="payImage.url" :alt="payImage.title" :title="payImage.title">
           </template>
-          <div class="triangle-border tb-border"></div>
-          <div class="triangle-border tb-background"></div>
+          <div class="triangle-down tb-border"></div>
+          <div class="triangle-down tb-background"></div>
         </div>
       </div>
     </div>
+    <scroll-top></scroll-top>
   </div>
 </template>
 
 <script>
 import { markdown } from '@/filters/markdown'
+import ScrollTop from '@/components/ScrollTop'
+
 export default {
   name: 'article',
   data () {
@@ -40,6 +43,9 @@ export default {
         contents: ''
       }
     }
+  },
+  components: {
+    ScrollTop
   },
   methods: {
     // parse the markdown language to HTML method
@@ -117,7 +123,7 @@ article{
   padding: 1em;
 }
 // triangle
-.triangle-border {
+.triangle-down {
   position: absolute;
   left: 50%;
   margin-left: -10px;
