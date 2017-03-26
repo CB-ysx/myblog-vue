@@ -30,10 +30,6 @@ describe('Article.vue', () => {
     vm.$el.querySelector('#pay').click()
     expect(vm.payShow)
       .to.false
-    vm.$nextTick(function () {
-      expect(vm.$el.querySelector('.pay-methods').classList.contains('hidden'))
-        .to.false
-    })
   })
 })
 
