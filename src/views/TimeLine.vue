@@ -3,7 +3,7 @@
     <div class="main">
       <h3>{{ title }}</h3>
       <ul class="time-lines">
-        <li v-for="timeLine in sortedReverse" :data-id="timeLine.id">
+        <li v-for="timeLine in sorted" :data-id="timeLine.id">
           <strong>{{timeLine.date}}</strong>{{timeLine.title}}
         </li>
       </ul>
@@ -17,13 +17,19 @@ export default {
   data () {
     return {
       title: '记录生活琐碎',
-      timeLines: {}
+      timeLines: []
+    }
+  },
+  methods: {
+    compare: function (obj1, obj2) {
+      let val1 = new Date(obj1.date)
+      let val2 = new Date(obj2.date)
+      return val2 - val1
     }
   },
   computed: {
-    sortedReverse: function () {
-      Array.prototype.sort.call(this.timeLines)
-      return Array.prototype.reverse.call(this.timeLines)
+    sorted: function () {
+      return this.timeLines.sort(this.compare)
     }
   },
   mounted () {
