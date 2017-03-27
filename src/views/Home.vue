@@ -52,12 +52,12 @@ export default {
       &:hover .title{
         border-bottom: 2px solid #42b983;
       }
-    }
-    h2{
-      margin: 0;
-      padding: 0.5em 0;
-      font-weight: 400;
-      color: #2c3e50;
+      h2{
+        margin: 0;
+        padding: 0.5em 0;
+        font-weight: 400;
+        color: #2c3e50;
+      }
     }
     .date{
       font-family: Comic Sans MS,curslve,sans-serif;
