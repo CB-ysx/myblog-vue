@@ -252,7 +252,7 @@ const timeLine = Mock.mock({
   'data|1-10': [{
     'id|+1': 1,
     'title': '@ctitle(5, 20)',
-    'date': '@datetime("yyyy-MM-dd HH:mm:ss")'
+    'date': '@datetime("yyyy-MM-dd")'
   }]
 })
 // about
