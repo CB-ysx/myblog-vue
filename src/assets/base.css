@@ -9,7 +9,7 @@ html,body,div,dl,dt,dd,ul,ol,li,th,td {
 img,body,html {
     border:0;
 }
-address,caption,cite,code,dfn,em,strong,th,var {
+address,caption,cite,code,dfn,th,var {
     font-style:normal;
     font-weight:400;
 }
@@ -58,9 +58,6 @@ a:hover,a:active {
     display: inline-block;
     *display: inline;
     *zoom: 1;
-}
-.placeholder{
-	color: #999;
 }
 .clearfix:after{content:''; display:table; clear:both;}/*(IE8+)*/
 .clearfix{*zoom:1;} /*(IE6/IE7)*/
