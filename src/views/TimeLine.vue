@@ -46,7 +46,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-ul.time-lines{
+ul.time-lines,ul.contact{
   list-style: disc;
   padding: 0 40px;
   li{
