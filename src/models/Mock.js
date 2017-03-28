@@ -257,10 +257,19 @@ const timeLine = Mock.mock({
 })
 // about
 const about = Mock.mock({
-  'data': [{
+  'data': {
     'name': '@cname',
+    'title': '@ctitle(20, 50)',
+    'skills|6-20': ['@word(3,10)'],
+    'contact|2-6': {
+      'facebook': ['@name', '@url()'],
+      'GitHub': ['@name', '@url()'],
+      'Twitter': ['@name', '@url()'],
+      'Youtube': ['@name', '@url()'],
+      'G+': '@url()'
+    },
     'intro': '@cparagraph(5, 10)'
-  }]
+  }
 })
 // pay-images
 const payImages = Mock.mock({
