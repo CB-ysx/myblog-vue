@@ -8,8 +8,6 @@
 
 ## Project Directory 
 
-#### Front-End Project Directory :
-
 ``` 
 ├── build
 ├── config
@@ -37,18 +35,6 @@
 │   └── styles
 ├── index.html
 │
-└── package.json
-```
-
-#### Back-End Project Directory:
-
-```
-├── routes
-├── views
-├── node_modules
-├── uploads		# upload save
-├── test		# test files
-├── app.js		# entry
 └── package.json
 ```
 
@@ -83,7 +69,7 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 
 ## To Do List
 
-####  Frond-End Features
+####  Features  For Public 
 
 - [x] Blog (Article)
 - [x] Supportive Pay
@@ -94,10 +80,15 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 - [ ] Language Switch
 - [ ] Search Article
 
-#### Back-End Features
+#### Features  For Manage
 
-- [ ] Manage System(Back End)
-- [ ] RSS
+- [ ] Publish Article (Markdown Editor)
+- [ ] Manage Article
+- [ ] TimeLines
+- [ ] Images Manage
+- [ ] Personal Information
+- [ ] General setting (Navigation)
+- [ ] Change Password
 
 #### Development
 
