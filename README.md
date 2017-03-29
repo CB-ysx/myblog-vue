@@ -8,31 +8,31 @@
 
 ## Project Directory 
 
-##### Front-End Project Directory :
+#### Front-End Project Directory :
 
 ``` 
 ├── build
 ├── config
 ├── node_modules
 ├── src
-│   ├── main.js #entry
+│   ├── main.js		# entry
 │   ├── App.vue
-│   ├── assets # Static resources
+│   ├── assets		# Static resources
 │   ├── router
 │   │   └── index.js # router config
-│   ├── filters # some custom filters
-│   ├── components # common components
+│   ├── filters 	 # some custom filters
+│   ├── components 	 # common components
 │   │   └── *.vue
-│   ├── models # mock.js data template
+│   ├── models		# mock.js data template
 │   ├── utils
-│   └── views # page views
+│   └── views		# page views
 │       ├── Home.vue
 │       ├── TimeLine.vue
 │       ├── Images.vue
 │       ├── Article.vue
 │       └── About.vue
-├── test # test files
-├── static # build assets files
+├── test		# test files
+├── static		# build assets files
 │   ├── images
 │   └── styles
 ├── index.html
@@ -40,15 +40,15 @@
 └── package.json
 ```
 
-##### Back-End Project Directory:
+#### Back-End Project Directory:
 
 ```
 ├── routes
 ├── views
 ├── node_modules
-├── uploads # upload save
-├── test # test files
-├── app.js #entry
+├── uploads		# upload save
+├── test		# test files
+├── app.js		# entry
 └── package.json
 ```
 
@@ -83,7 +83,7 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 
 ## To Do List
 
-#####  Frond-End Features
+####  Frond-End Features
 
 - [x] Blog (Article)
 - [x] Supportive Pay
@@ -94,10 +94,14 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 - [ ] Language Switch
 - [ ] Search Article
 
-##### Back-End Features
+#### Back-End Features
 
 - [ ] Manage System(Back End)
 - [ ] RSS
+
+#### Development
+
+- [ ] CI Development
 - [ ] Auto Deployment
 
 ## LICENSE
