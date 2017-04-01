@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <template v-if="this.$route.matched[0].name !== 'Admin'">
-      <head-nav></head-nav>
-    </template>
+    <head-nav></head-nav>
     <router-view></router-view>
     <foot></foot>
   </div>
