@@ -25,13 +25,13 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
+    new HtmlWebpackPlugin({ // Public entry
       filename: 'index.html',
       template: 'index.html',
       chunks: ['app'],
       inject: true
     }),
-    new HtmlWebpackPlugin({
+    new HtmlWebpackPlugin({ // Manage entry
       filename: 'admin.html',
       template: 'admin.html',
       chunks: ['admin'],
