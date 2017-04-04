@@ -241,10 +241,11 @@ const page = Mock.mock({
 })
 // images
 const images = Mock.mock({
-  'data|0-20': [{
+  'data|0-100': [{
     'id|1-10': 1,
     'title': '@ctitle()',
-    'img': '@dataImage("120x120", "@ctitle")'
+    'img': '@dataImage("120x120", "@ctitle")',
+    'Bimg': '@image("2000x2000", "@color", "@ctitle")'
   }]
 })
 // timeLine
