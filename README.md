@@ -80,7 +80,7 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 - [x] Blog (Article)
 - [x] Supportive Pay
 - [x] TimeLines
-- [ ] Images Gallery
+- [x] Images Gallery
 - [x] About Me
 - [ ] Responsive Layout
 - [ ] Language Switch
@@ -88,6 +88,7 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 
 #### Features  For Manage
 
+- [x] Login page
 - [ ] Publish Article (Markdown Editor)
 - [ ] Manage Article
 - [ ] TimeLines
