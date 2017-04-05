@@ -104,4 +104,6 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 
 ## LICENSE
 
-MIT
+[MIT](https://opensource.org/licenses/MIT)
+
+Copyright (c) 2017-present, Joris Cai

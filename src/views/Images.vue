@@ -15,8 +15,10 @@
       <div class="full-bg">
         <div class="close" @click="closeImage">X</div>
         <template v-if="images[showCurrent]">
-          <img :src="images[showCurrent].Bimg" :alt="images[showCurrent].title" :title="images[showCurrent].title">
-          <h2>{{ images[showCurrent].title }}</h2>
+          <div class="full-img-box">
+            <img :src="images[showCurrent].Bimg" :alt="images[showCurrent].title" :title="images[showCurrent].title">
+            <h2>{{ images[showCurrent].title }}</h2>
+          </div>
         </template>
       </div>
     </template>
@@ -68,29 +70,37 @@ export default {
   left: 0;
   top: 0;
   z-index: 200;
-  padding: 2em 0;
+  padding: 1.6em 0;
   background-color: rgba(0,0,0,0.7);
+  .full-img-box{
+    background-color: #f9f9f9;
+    max-height: 92%;
+    height: 92%;
+    padding: 1em 1em 0em;
+    margin: 0 1.6em;
+    position: relative;
+  }
   img{
-    max-height: 85%;
-    height: 85%;
+    max-height: 91%;
+    height: 91%;
   }
   h2{
-    color: white;
+    margin: 1em 0 0;
   }
   .close{
     position: absolute;
-    right: 1em;
-    top: 1em;
-    color: white;
+    z-index: 300;
+    right: 0.5em;
+    top: 0.5em;
     cursor: pointer;
     width: 2em;
     height: 2em;
     line-height: 2em;
     text-align: center;
-    border: 1px solid #5F5F5F;
+    border: 1px solid #f9f9f9;
     box-shadow: 0px 0px 1px 0px;
     border-radius: 50%;
-    background-color: rgb(113, 112, 112);
+    background-color: #f9f9f9;
   }
 }
 .images{
@@ -102,7 +112,6 @@ export default {
     display: inline-block;
     padding: 0.5em;
     margin: 0.6em;
-    // border: 1px solid #ccc;
     background-color: white;
     box-shadow: 0px 0px 15px 0px;
     &:hover{
