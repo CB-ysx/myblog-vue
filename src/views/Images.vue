@@ -16,7 +16,9 @@
         <div class="close" @click="closeImage">X</div>
         <template v-if="images[showCurrent]">
           <div class="full-img-box">
-            <img :src="images[showCurrent].Bimg" :alt="images[showCurrent].title" :title="images[showCurrent].title">
+            <div class="big-img-box">
+              <img :src="images[showCurrent].Bimg" :class="{ 'hidden': !loadedImg}" :alt="images[showCurrent].title" ref="bigImg" :title="images[showCurrent].title">
+            </div>
             <h2>{{ images[showCurrent].title }}</h2>
           </div>
         </template>
@@ -31,6 +33,7 @@ export default {
   data () {
     return {
       images: {},
+      loadedImg: false,
       showCurrent: null
     }
   },
@@ -44,6 +47,13 @@ export default {
     showImage: function (e) {
       console.log('click')
       this.showCurrent = e.currentTarget.attributes['data-index'].value
+      this.$nextTick(function () {
+        let img = this.$refs.bigImg
+        this.loadedImg = img.complete
+        img.addEventListener('load', () => {
+          this.loadedImg = true
+        })
+      })
     },
     closeImage: function () {
       this.showCurrent = null
@@ -73,16 +83,21 @@ export default {
   padding: 1.6em 0;
   background-color: rgba(0,0,0,0.7);
   .full-img-box{
-    background-color: #f9f9f9;
+    // background-color: #f9f9f9;
+    background: url('../assets/images/loading.gif') no-repeat center;
+    background-color: white;
     max-height: 92%;
     height: 92%;
     padding: 1em 1em 0em;
     margin: 0 1.6em;
     position: relative;
+    .big-img-box{
+      max-height: 91%;
+      height: 91%;
+    }
   }
   img{
-    max-height: 91%;
-    height: 91%;
+    max-height: 100%;
   }
   h2{
     margin: 1em 0 0;
