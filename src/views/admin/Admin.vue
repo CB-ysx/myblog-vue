@@ -3,7 +3,7 @@
  * This is Admin.vue
  */
 <template>
-  <div class="container">
+  <div class="admin container">
     <nav class="side clearfix" :class="{ 'side-hidden': hidMenu, 'side-show': !hidMenu}">
       <header>
         <h3 title="click to edit your profile">{{ name }}</h3>
@@ -24,6 +24,7 @@
         </ul>
       </section>
       <footer class="nav-footer">
+        <!-- 退出 -->
         <div class="logout">
           <a href="#">
             <svg class="icon logout-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1403">
@@ -31,19 +32,13 @@
             </svg>
           </a>
         </div>
+        <!-- 收起、展开侧边栏 -->
         <div class="hid-menu" @click="menuToggle">
           <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2176">
-            <!-- <path d="M928 160h-832c-19.2 0-32-12.8-32-32s12.8-32 32-32h832c19.2 0 32 12.8 32 32s-12.8 32-32 32zM928 416H384c-19.2 0-32-12.8-32-32s12.8-32 32-32h544c19.2 0 32 12.8 32 32s-12.8 32-32 32zM928 672H384c-19.2 0-32-12.8-32-32s12.8-32 32-32h544c19.2 0 32 12.8 32 32s-12.8 32-32 32zM928 928h-832c-19.2 0-32-12.8-32-32s12.8-32 32-32h832c19.2 0 32 12.8 32 32s-12.8 32-32 32zM249.6 377.6V672c-6.4 6.4-12.8 6.4-19.2 0L70.4 524.8C64 518.4 64 518.4 64 512s0-6.4 6.4-12.8l160-147.2c6.4-6.4 12.8-6.4 19.2 0v25.6z" p-id="2814"></path> -->
             <path v-if="!hidMenu" d="M812.8 237.6L768 192 493.6 466.4 448 512l45.6 45.6L768 832l44.8-45.6L538.4 512zM320 128h64v768h-64z" p-id="2572"></path>
             <path v-else d="M211.2 237.6L256 192l274.4 274.4L576 512l-45.6 45.6L256 832l-44.8-45.6L485.6 512zM640 128h64v768h-64z" p-id="2582"></path>
           </svg>
         </div>
-        <!-- <div class="hid-menu" @click="menuToggle" v-else :class="{ 'side-show': hidMenu}">
-          <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2176">
-            <path d="M911.2 668 400.8 668c-24.8 0-44.8-21.6-44.8-48s20-48 44.8-48l510.4 0c24.8 0 44.8 21.6 44.8 48S936 668 911.2 668zM911.2 444 400.8 444c-24.8 0-44.8-21.6-44.8-48s20-48 44.8-48l510.4 0c24.8 0 44.8 21.6 44.8 48S936 444 911.2 444zM908 228l-781.6 0c-26.4 0-49.6-20-50.4-46.4-0.8-27.2 20.8-49.6 48-49.6l781.6 0c26.4 0 49.6 20 50.4 46.4C956.8 205.6 935.2 228 908 228zM76 667.2 76 348.8c0 0 0 0 0 0l223.2 159.2c0 0 0 0 0 0L76 667.2C76 668 76 668 76 667.2zM124 788l781.6 0c26.4 0 49.6 20 50.4 46.4 0.8 27.2-20.8 49.6-48 49.6l-781.6 0c-26.4 0-49.6-20-50.4-46.4C75.2 810.4 96.8 788 124 788z" p-id="473"></path>
-            <path d="M211.2 237.6L256 192l274.4 274.4L576 512l-45.6 45.6L256 832l-44.8-45.6L485.6 512zM640 128h64v768h-64z" p-id="2582"></path>
-          </svg>
-        </div> -->
       </footer>
     </nav>
     <div class="content">
@@ -77,7 +72,7 @@ export default {
     }
   },
   mounted () {
-    // console.log(this.$route)
+    // console.log(this.$el.classList)
   }
 }
 </script>

@@ -89,6 +89,7 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 #### Features  For Manage
 
 - [x] Login page
+- [x] Main page
 - [ ] Publish Article (Markdown Editor)
 - [ ] Manage Article
 - [ ] TimeLines
