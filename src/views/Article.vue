@@ -1,12 +1,10 @@
 <template>
   <div class="article container content">
-    <link href="//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.css" rel="stylesheet">
-    <link href="//cdn.bootcss.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <div class="main">
       <article>
         <h1 class="title">{{ article.title }}</h1>
         <span class="date">{{ article.date }}</span>
-        <section class="text markdown-body" v-html="markdownHtml(article.contents)"></section>
+        <preview :contents="article.contents"></preview>
       </article>
       <div class="article-footer center">
         <p>讨论请发邮件到<a id="email" :href="'mailto:'+ email">{{ email }}</a></p>
@@ -26,8 +24,8 @@
 </template>
 
 <script>
-import { markdown } from '@/filters/markdown'
 import ScrollTop from '@/components/ScrollTop'
+import Preview from '@/components/Preview'
 
 export default {
   name: 'article',
@@ -45,13 +43,10 @@ export default {
     }
   },
   components: {
-    ScrollTop
+    ScrollTop,
+    Preview
   },
   methods: {
-    // parse the markdown language to HTML method
-    markdownHtml: function (str) {
-      return markdown(str)
-    },
     showPay: function () {
       this.payShow = !this.payShow
     }
