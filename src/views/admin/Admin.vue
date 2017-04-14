@@ -56,7 +56,7 @@ export default {
       name: 'Joris Cai',
       hidMenu: false,
       navItems: [{
-        'Artilces': '/artilces',
+        'Articles': '/articles',
         'TimeLines': '/timelines',
         'Images': '/images'
       },
@@ -86,10 +86,17 @@ $side-width: 10em;
 }
 .container{
   display: flex;
-  height: 100%;
+  max-height: 100%;
+  flex-grow: 1;
 }
 html,body,#app,.container{
   height: 100%;
+  overflow-y: hidden;
+}
+.content{
+  display: flex;
+  flex: 1;
+  // flex-grow: 1;
 }
 $side-bg:#f5f7f8;
 @keyframes sideShow {
@@ -174,7 +181,7 @@ $side-bg:#f5f7f8;
       padding-left: $pad-icon;
       border-left: 1px solid $border-color;
     }
-    .icon{
+    @at-root .icon{
       width: 0.8em;
       height: 0.8em;
       vertical-align: middle;
