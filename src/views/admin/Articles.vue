@@ -8,14 +8,14 @@
     <section class="list-box">
       <header class="title border-shadow">
         <span>{{ listTitle }}</span>
-        <span>
+        <span class="add-btn" @click="addArticle">
           <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2957">
             <path d="M544 128 480 128 480 480 128 480 128 544 480 544 480 896 544 896 544 544 895.936 544 895.936 480 544 480Z" p-id="3579" fill="#bfbfbf"></path>
           </svg>
         </span>
       </header>
       <div class="list">
-        <article v-for="article in articles" @click="showPost(article)" class="text-box border-shadow" :class="{ active: curent === article.id}">
+        <article v-for="article in articles" @click="showArticle(article)" class="text-box border-shadow" :class="{ active: curent === article.id}">
           <h3 class="article-title">{{ article.title }}</h3>
           <span class="date">{{ article.date }}</span>
           <section class="text">
@@ -31,13 +31,11 @@
           {{ title }}
         </div>
         <div class="btn-box">
-          <button type="button" class="btn success" name="publish">Edit</button>
-          <button type="button" class="btn error" name="save">Delete</button>
+          <button type="button" ref="edit" class="btn success" :value="curent" @click="editArticle" name="publish">Edit</button>
+          <button type="button" ref="delete" class="btn error" :value="curent" @click="deleteArticle" name="save">Delete</button>
         </div>
       </header>
       <!-- Preview components -->
-      <!-- <link href="//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.css" rel="stylesheet">
-      <link href="//cdn.bootcss.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet"> -->
       <preview :contents="contents"></preview>
     </section>
       <!-- <header class="border-shadow">
@@ -56,9 +54,8 @@
 </template>
 
 <script>
-// import { markdown } from '@/filters/markdown'
-// import simplemde from 'simplemde'
 import Preview from '@/components/Preview'
+
 export default {
   name: 'articles',
   data () {
@@ -75,7 +72,7 @@ export default {
   },
   methods: {
     // Show the Article method
-    showPost: function (item) {
+    showArticle: function (item) {
       this.title = item.title
       this.curent = item.id
       this.$http.get('/article/' + item.id).then(res => {
@@ -83,6 +80,20 @@ export default {
       }, res => {
         console.log(res)
       })
+    },
+    // Add a Article method
+    addArticle: function () {
+      this.$router.push({ path: 'editor' })
+    },
+    // Edit a Article method
+    editArticle: function () {
+      let id = this.$refs.edit.value
+      this.$router.push({ path: 'editor/' + id })
+    },
+    // Delete a Article method
+    deleteArticle: function () {
+      console.log('delete')
+      console.log(this.$refs.delete.value)
     }
   },
   mounted () {
@@ -133,7 +144,6 @@ export default {
     header{
       display: flex;
       justify-content: space-between;
-      // flex: 1;
     }
     .title{
       padding: 0.8em;
@@ -197,6 +207,9 @@ export default {
       background-color: #449d44;
       border-color: #398439;
     }
+    &:active,&:focus{
+      outline: none;
+    }
   }
   &.primary {
     color: white;
@@ -206,6 +219,9 @@ export default {
       background-color: #286090;
       border-color: #204d74;
     }
+    &:active,&:focus{
+      outline: none;
+    }
   }
   &.error {
     color: white;
@@ -214,6 +230,9 @@ export default {
     &:hover{
       background-color: #c9302c;
       border-color: #ac2925;
+    }
+    &:active,&:focus{
+      outline: none;
     }
   }
 }
