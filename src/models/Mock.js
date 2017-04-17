@@ -5,22 +5,22 @@ let Random = Mock.Random
 /**
  * Methods
  */
-Mock.mock('/articles', (ops) => {
+Mock.mock('/articles', 'get', (ops) => {
   return pages.data
 })
-Mock.mock(/\/article\//, (ops) => {
+Mock.mock(/\/article\//, 'get', (ops) => {
   return page.data
 })
-Mock.mock('/time-line', (ops) => {
+Mock.mock('/time-line', 'get', (ops) => {
   return timeLine.data
 })
-Mock.mock('/images', (ops) => {
+Mock.mock('/images', 'get', (ops) => {
   return images.data
 })
-Mock.mock('/about', (ops) => {
+Mock.mock('/about', 'get', (ops) => {
   return about.data
 })
-Mock.mock('/pay', (ops) => {
+Mock.mock('/pay', 'get', (ops) => {
   return payImages.data
 })
 
