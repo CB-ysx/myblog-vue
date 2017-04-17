@@ -150,8 +150,8 @@ export default {
       font-size: 1.2em;
       border: none;
       outline: none;
-      border-bottom: 1px solid #ccc;
       font-weight: 600;
+      flex: 1;
     }
     .btn-box{
       padding: 0.5em;

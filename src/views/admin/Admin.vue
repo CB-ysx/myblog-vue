@@ -121,6 +121,7 @@ $side-bg:#f5f7f8;
   flex-direction: column;
   background: $side-bg;
   height: 100%;
+  border-right: 1px solid #dfe1e3;
   &.side-show, &.side-hidden:hover{
     animation: sideShow 0.15s;
     margin-left: 0;
