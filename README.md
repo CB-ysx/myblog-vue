@@ -90,7 +90,7 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 
 - [x] Login page
 - [x] Main page
-- [ ] Publish Article (Markdown Editor)
+- [x] Publish Article (Markdown Editor)
 - [x] Manage Article
 - [ ] TimeLines
 - [ ] Images Manage
