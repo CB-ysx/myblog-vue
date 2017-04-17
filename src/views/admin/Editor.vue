@@ -5,20 +5,27 @@
 <template>
   <div class="editor edit-box">
     <header class="border-shadow">
+      <!-- Title input -->
       <div class="input-box">
         <input type="text" class="title" v-model="title"/>
         <hr class="line">
       </div>
+      <!-- Publish and Save button -->
       <div class="btn-box">
         <button type="button" ref="publish" class="btn success" :value="curent" @click="publishArticle" name="publish">Publish</button>
         <button type="button" ref="save" class="btn primary" :value="curent" @click="saveArticle" name="save">Save</button>
       </div>
     </header>
     <section class="input-preview">
+      <!-- input textarea -->
       <section class="input-md">
         <textarea ref="editor" v-model="contents"></textarea>
-        <footer class="foot">Markdown</footer>
+        <footer class="foot">
+          <span>Markdown</span>
+          <span>words: {{ count.word }}， line: {{ count.lines }}</span>
+        </footer>
       </section>
+      <!-- Markdown preview -->
       <section class="preview-md">
         <preview :contents="contents"></preview>
         <footer class="foot">Preview</footer>
@@ -40,32 +47,42 @@ export default {
   name: 'editor',
   data () {
     return {
-      title: 'this a editor page',
+      title: '',
       contents: '',
-      id: ''
+      id: '',
+      count: {
+        word: 0,
+        lines: 0
+      }
     }
   },
   components: {
     Preview
   },
   watch: {
-    // update the Height and scrollTop when context change
     contents: function () {
+      // update the Height and scrollTop when context change
       top = editor.scrollTop
       preHeight = preview.scrollHeight
       editHeight = editor.scrollHeight
+      // count word and line for contents
+      let word = this.contents.replace(/<[^>]+>/g, '')
+      let chinese = word.match(/[\u4e00-\u9fa5]/g) ? word.match(/[\u4e00-\u9fa5]/g).length : 0
+      let english = word.match(/[\w]+/g) ? word.match(/[\w]+/g).length : 0
+      this.count.word = chinese + english
+      this.count.lines = word.match(/\r?\n|\r/g).length
     }
   },
   methods: {
     publishArticle: function () {
       console.log('publish')
-      if (this.id) {
+      if (this.id) { // update article by id
         this.$http.put('/article/' + this.id).then(res => {
           this.contents = res.data.contents
         }, res => {
           console.log(res)
         })
-      } else {
+      } else { // add a article
         this.$http.post('/article/' + this.id).then(res => {
           this.contents = res.data.contents
         }, res => {
@@ -74,13 +91,13 @@ export default {
       }
     },
     saveArticle: function () {
-      if (this.id) {
+      if (this.id) { // update article by id
         this.$http.put('/article/' + this.id, { title: this.title, contents: this.contents }).then(res => {
           console.log(res)
         }, res => {
           console.log(res)
         })
-      } else {
+      } else { // add a article
         this.$http.post('/article/' + this.id, { title: this.title, contents: this.contents }).then(res => {
           console.log(res)
         }, res => {
@@ -98,6 +115,7 @@ export default {
     editHeight = editor.scrollHeight
   },
   mounted () {
+    // get the Element
     editor = this.$refs.editor
     preview = document.getElementById('preview')
     // scroll event handle
@@ -134,6 +152,9 @@ export default {
     flex-direction: row;
     .foot{
       background: #f5f7f8;
+      padding: 0.5em 1em;
+      justify-content: space-between;
+      display: flex;
     }
     .input-md{
       flex: 1;

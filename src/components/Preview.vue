@@ -3,7 +3,7 @@
  * This is Preview.vue
  */
 <template>
-  <div class="preview-box">
+  <div class="preview-box" id="preview">
     <link href="//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <section class="preview markdown-body" v-html="markdownHtml(contents)">
