@@ -4,6 +4,7 @@ import Admin from '@/views/admin/Admin'
 import Login from '@/views/admin/Login'
 import Articles from '@/views/admin/Articles'
 import Editor from '@/views/admin/Editor'
+import Timelines from '@/views/admin/Timelines'
 
 Vue.use(Router)
 
@@ -13,10 +14,12 @@ export default new Router({
       name: 'Admin',
       component: Admin,
       children: [
+        // article
         {
           path: 'articles',
           component: Articles
         },
+        // editor
         {
           path: 'editor',
           component: Editor,
@@ -26,6 +29,11 @@ export default new Router({
               component: Editor
             }
           ]
+        },
+        // timelines
+        { path: '/Timelines',
+          name: 'Timelines',
+          component: Timelines
         }
       ]
     },
