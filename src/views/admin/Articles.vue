@@ -189,7 +189,7 @@ export default {
 .btn{
   display: inline-block;
   padding: 6px 12px;
-  font-size: 1em;
+  font-size: inherit;
   line-height: 1.42857143;
   text-align: center;
   white-space: nowrap;
