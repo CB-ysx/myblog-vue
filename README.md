@@ -92,7 +92,7 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 - [x] Main page
 - [x] Publish Article (Markdown Editor)
 - [x] Manage Article
-- [ ] TimeLines
+- [x] TimeLines
 - [ ] Images Manage
 - [ ] Personal Information
 - [ ] General setting (Navigation)
