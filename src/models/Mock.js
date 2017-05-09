@@ -5,19 +5,19 @@ let Random = Mock.Random
 /**
  * Methods
  */
-Mock.mock('/articles', 'get', (ops) => {
+Mock.mock(/\/(private\/)?article(s)?$/, 'get', (ops) => {
   return pages.data
 })
-Mock.mock(/\/article\//, 'get', (ops) => {
+Mock.mock(/\/(private\/)?article\/\w{1,}/, 'get', (ops) => {
   return page.data
 })
-Mock.mock('/time-line', 'get', (ops) => {
+Mock.mock(/\/(private\/)?timeline(s)?$/, 'get', (ops) => {
   return timeLine.data
 })
-Mock.mock('/images', 'get', (ops) => {
+Mock.mock(/\/(private\/)?image(s)?$/, 'get', (ops) => {
   return images.data
 })
-Mock.mock('/about', 'get', (ops) => {
+Mock.mock(/\/(private\/)?about$/, 'get', (ops) => {
   return about.data
 })
 Mock.mock('/pay', 'get', (ops) => {
