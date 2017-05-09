@@ -10,13 +10,23 @@ Vue.use(VueResource)
 
 Vue.config.productionTip = false  // 关闭提示处于开发环境
 
+// request url
+var urlData = {
+  article: '/article',
+  timeline: '/timeline',
+  image: '/image',
+  about: '/about'
+}
+
 /* eslint-disable no-unused-vars */
 var vm = new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  data: urlData
 })
+
 /* eslint-enable */
 
 // [].forEach.call(document.querySelectorAll('*'), function (a) {

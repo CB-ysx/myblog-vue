@@ -19,12 +19,21 @@ Vue.directive('focus', {
   }
 })
 
+// request url
+var urlData = {
+  article: '/private/article',
+  timeline: '/private/timeline',
+  image: '/private/image',
+  about: '/private/about'
+}
+
 /* eslint-disable no-unused-vars */
 var vm = new Vue({
   el: '#app',
   router,
   template: '<Admin/>',
-  components: { Admin }
+  components: { Admin },
+  data: urlData
 })
 /* eslint-enable */
 
