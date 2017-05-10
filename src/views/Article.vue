@@ -54,7 +54,7 @@ export default {
   mounted () {
     // get to layout data
     console.log(this.$route.params.id)
-    this.$http.get('/article/' + this.$route.params.id).then(res => {
+    this.$http.get(this.$root.$data.article + '/' + this.$route.params.id).then(res => {
       console.log(res.url)
       this.article = res.data
     }, res => {

@@ -24,7 +24,7 @@ export default {
     }
   },
   mounted () {
-    this.$http.get('/articles').then(res => {
+    this.$http.get(this.$root.$data.article).then(res => {
       this.articles = res.data
     }, res => {
       console.log(res)
