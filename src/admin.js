@@ -5,6 +5,7 @@ import Admin from './AdminApp'
 import router from './router/admin'
 import VueResource from 'vue-resource'
 import Mock from './models/Mock' // eslint-disable-line
+import MockPrivate from './models/Mock-private' // eslint-disable-line
 
 Vue.use(VueResource)
 
