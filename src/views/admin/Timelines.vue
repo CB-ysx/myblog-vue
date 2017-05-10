@@ -142,7 +142,7 @@ export default {
   },
   mounted () {
     // Get the Timelines List data
-    this.$http.get('/time-line').then(res => {
+    this.$http.get(this.$root.$data.timeline).then(res => {
       console.log(res.data)
       this.timeLines = res.data
     }, res => {

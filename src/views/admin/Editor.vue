@@ -77,13 +77,13 @@ export default {
     publishArticle: function () {
       console.log('publish')
       if (this.id) { // update article by id
-        this.$http.put('/article/' + this.id).then(res => {
+        this.$http.put(this.$root.$data.article + '/' + this.id).then(res => {
           this.contents = res.data.contents
         }, res => {
           console.log(res)
         })
       } else { // add a article
-        this.$http.post('/article/' + this.id).then(res => {
+        this.$http.post(this.$root.$data.article + '/' + this.id).then(res => {
           this.contents = res.data.contents
         }, res => {
           console.log(res)
@@ -92,13 +92,13 @@ export default {
     },
     saveArticle: function () {
       if (this.id) { // update article by id
-        this.$http.put('/article/' + this.id, { title: this.title, contents: this.contents }).then(res => {
+        this.$http.put(this.$root.$data.article + '/' + this.id, { title: this.title, contents: this.contents }).then(res => {
           console.log(res)
         }, res => {
           console.log(res)
         })
       } else { // add a article
-        this.$http.post('/article/' + this.id, { title: this.title, contents: this.contents }).then(res => {
+        this.$http.post(this.$root.$data.article + '/' + this.id, { title: this.title, contents: this.contents }).then(res => {
           console.log(res)
         }, res => {
           console.log(res)
@@ -130,7 +130,7 @@ export default {
     console.log(id)
     if (id) {
       // Get the Article by id
-      this.$http.get('/article/' + id).then(res => {
+      this.$http.get(this.$root.$data.article + '/' + id).then(res => {
         this.title = res.data.title
         this.contents = res.data.contents
       }, res => {

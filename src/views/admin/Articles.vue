@@ -75,7 +75,7 @@ export default {
     showArticle: function (item) {
       this.title = item.title
       this.curent = item.id
-      this.$http.get('/article/' + item.id).then(res => {
+      this.$http.get(this.$root.$data.article + '/' + item.id).then(res => {
         this.contents = res.data.contents
       }, res => {
         console.log(res)
@@ -98,7 +98,7 @@ export default {
   },
   mounted () {
     // Get the Articles List data
-    this.$http.get('/articles').then(res => {
+    this.$http.get(this.$root.$data.article).then(res => {
       this.articles = res.data
     }, res => {
       console.log(res)
