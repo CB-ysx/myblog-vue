@@ -8,15 +8,11 @@
       {{ title }}
     </h3>
     <div class="timeline-box">
-      <!-- <div class="add-box">
-        <input type="text">
-        <input type="text" name="" value="">
-      </div> -->
       <ul class="item-list">
         <li class="add-box">
           <div class="text-input">
-            <input type="text" ref="date" class="date-input">
-            <input type="text" ref="content">
+            <datepicker language="zh" input-class="date-input" placeholder="Select Date" format="yyyy-MM-dd" ref="date" :disabled="dateDisable"></datepicker>
+            <input type="text" ref="content" placeholder="Input a title">
           </div>
           <div class="btn-box">
             <svg class="icon add-icon" @click="add" viewBox="0 0 1038 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4854">
@@ -33,7 +29,7 @@
             </svg>
           </div>
         </li>
-        <li class="item" v-for="item in sorted" @dblclick="edit(item.id)" :class="{ 'list-none': editId === item.id }">
+        <li class="item" v-for="(item, index) in sorted" @dblclick="edit(item.id, index)" :class="{ 'list-none': editId === item.id }">
           <!-- show -->
           <div class="show-box" v-if="editId !== item.id">
             <strong>{{ item.date }}</strong>
@@ -44,8 +40,8 @@
           <!-- edit -->
           <div class="add-box" v-if="editId === item.id">
             <div class="text-input">
-              <input type="text" class="edit-input date-input" :value="item.date" ref="editDate">
-              <input type="text" class="edit-input" v-focus :value="item.title" ref="editContent">
+              <datepicker language="zh" input-class="edit-input date-input" placeholder="Select Date" format="yyyy-MM-dd" :value="item.date" ref="editDate" :disabled="dateDisable"></datepicker>
+              <input type="text" class="edit-input" v-focus :value="item.title" ref="editContent" placeholder="Input a title">
             </div>
             <div class="btn-box right">
               <svg class="icon save-icon" @click="save" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8304">
@@ -70,14 +66,24 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
+
+let url = ''
 export default {
   name: 'timelines',
   data () {
     return {
       title: 'timelines page',
       timeLines: [],
-      editId: ''
+      editId: '',
+      dataIndex: '',
+      dateDisable: {
+        from: new Date()
+      }
     }
+  },
+  components: {
+    Datepicker
   },
   methods: {
     compare: function (obj1, obj2) {
@@ -85,54 +91,78 @@ export default {
       let val2 = new Date(obj2.date)
       return val2 - val1
     },
-    edit: function (id) {
+    edit: function (id, index) {
       this.editId = id
+      this.dataIndex = index
       // // focus on the content input
       // this.$nextTick(function () {
       //   this.$refs.editContent[0].focus()
       // })
     },
     add: function () {
-      let time = this.$refs.date.value
+      let time = this.$refs.date.formattedValue
       let content = this.$refs.content.value
       console.log(time)
       console.log(content)
+      if (!time) {
+        alert('日期不能为空！')
+        return
+      }
+      if (!content) {
+        alert('标题不能为空！')
+        return
+      }
       // Add a Timeline data
-      // this.$http.post('/time-line').then(res => {
-      //   console.log(res.data)
-      //   this.timeLines = res.data
-      // }, res => {
-      //   console.log(res)
-      // })
+      this.$http.post(url).then(res => {
+        console.log(res.data)
+        // this.timeLines.push({ id: res.data.id date: time, title: content })
+      }, res => {
+        console.log(res)
+      })
       this.editId = ''
     },
     clear: function () {
-      this.$refs.date.value = ''
+      // clear Datepicker value
+      this.$refs.date.$data.selectedDate = null
+      this.$refs.date.$emit('cleared')
+      // clear title value
       this.$refs.content.value = ''
     },
     save: function () {
-      let time = this.$refs.editDate[0].value
+      let time = this.$refs.editDate[0].formattedValue
       let content = this.$refs.editContent[0].value
       console.log(time)
       console.log(content)
+      if (!time) {
+        alert('日期不能为空！')
+        return
+      }
+      if (!content) {
+        alert('标题不能为空！')
+        return
+      }
       // Update a Timeline data
-      // this.$http.put('/time-line/' + this.editId).then(res => {
-      //   console.log(res.data)
-      //   this.timeLines = res.data
-      // }, res => {
-      //   console.log(res)
-      // })
+      this.$http.put(url + '/' + this.editId).then(res => {
+        console.log(res.data)
+        // update components data
+        this.timeLines[this.dataIndex].date = time
+        this.timeLines[this.dataIndex].title = content
+      }, res => {
+        console.log(res)
+      })
       this.editId = ''
     },
     del: function () {
       console.log('delete ' + this.editId)
       // Delete a Timeline data
-      // this.$http.delete('/time-line/' + this.editId).then(res => {
-      //   console.log(res.data)
-      //   this.timeLines = res.data
-      // }, res => {
-      //   console.log(res)
-      // })
+      this.$http.delete(url + '/' + this.editId).then(res => {
+        console.log(res.data)
+        // update components data
+        this.timeLines.splice(this.dataIndex, 1)
+      }, res => {
+        console.log(res)
+      })
+      this.editId = ''
     }
   },
   computed: {
@@ -141,8 +171,9 @@ export default {
     }
   },
   mounted () {
+    url = this.$root.$data.timeline
     // Get the Timelines List data
-    this.$http.get(this.$root.$data.timeline).then(res => {
+    this.$http.get(url).then(res => {
       console.log(res.data)
       this.timeLines = res.data
     }, res => {
