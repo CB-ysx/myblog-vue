@@ -17,7 +17,8 @@
     "simplemde": "^1.11.2",
     "vue": "^2.2.2",
     "vue-resource": "^1.2.1",
-    "vue-router": "^2.2.0"
+    "vue-router": "^2.2.0",
+    "vuejs-datepicker": "^0.7.11"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
