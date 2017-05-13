@@ -249,19 +249,19 @@ h3.title{
   .date-input{
     font-weight: bold;
   }
-  .btn-box{
-    padding: 0.2em 0;
-    .add-icon,.save-icon{
-      fill: #5cb85c;
-      &:hover{
-        fill: #449d44;
-      }
+}
+.btn-box{
+  padding: 0.2em 0;
+  .add-icon,.save-icon{
+    fill: #5cb85c;
+    &:hover{
+      fill: #449d44;
     }
-    .del-icon{
-      fill: #8a8a8a;
-      &:hover{
-        fill: #e25440;
-      }
+  }
+  .del-icon{
+    fill: #8a8a8a;
+    &:hover{
+      fill: #e25440;
     }
   }
 }
