@@ -7,8 +7,8 @@
     <h3 class="title border-shadow">
       {{ title }}
     </h3>
-    <div class="timeline-box">
-      <ul class="item-list">
+    <div class="main-box">
+      <ul class="item-list list-manage">
         <li class="add-box">
           <div class="text-input">
             <datepicker language="zh" input-class="date-input" placeholder="Select Date" format="yyyy-MM-dd" ref="date" :disabled="dateDisable"></datepicker>
@@ -207,19 +207,24 @@ h3.title{
     }
   }
 }
+.main-box{
+  padding: 1em;
+  overflow-y: auto;
+  flex: 1;
+}
 .timelines{
   display: flex;
   flex: 1;
   flex-direction: column;
   line-height: 1.6em;
-  .timeline-box{
-    padding: 1em;
-  }
   .show-box{
     &:hover{
       background: #DEEAF5;
     }
   }
+}
+
+.list-manage{
   .add-box{
     display: flex;
     .text-input{
@@ -235,21 +240,23 @@ h3.title{
       }
     }
   }
-  input,.edit-input{
-    padding: 6px 10px;
-    border: 1px solid #dfe1e3;
-    border-radius: 4px;
-    font-size: 1em;
-    color: inherit;
-    &:focus{
-      outline: 0;
-      border-color: #b1b1b1;
-    }
-  }
-  .date-input{
-    font-weight: bold;
+}
+.date-input{
+  font-weight: bold;
+}
+input,textarea{
+  padding: 6px 10px;
+  border: 1px solid #dfe1e3;
+  border-radius: 4px;
+  font: inherit;
+  color: inherit;
+  box-sizing: border-box;  // fix width overflow the parent box when set padding
+  &:focus{
+    outline: 0;
+    border-color: #b1b1b1;
   }
 }
+
 .btn-box{
   padding: 0.2em 0;
   .add-icon,.save-icon{
