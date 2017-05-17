@@ -6,6 +6,7 @@ import Articles from '@/views/admin/Articles'
 import Editor from '@/views/admin/Editor'
 import Timelines from '@/views/admin/Timelines'
 import Images from '@/views/admin/Images'
+import Profile from '@/views/admin/Profile'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
         { path: '/Images',
           name: 'Images',
           component: Images
+        },
+        // profile
+        { path: '/profile',
+          name: 'profile',
+          component: Profile
         }
       ]
     },

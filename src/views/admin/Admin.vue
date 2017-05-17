@@ -62,7 +62,7 @@ export default {
       },
       {
         'General': '/settings',
-        'Profile': '/profiles'
+        'Profile': '/profile'
       }]
     }
   },
