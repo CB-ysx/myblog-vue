@@ -267,7 +267,7 @@ const about = Mock.mock({
       'GitHub': ['@name', '@url()'],
       'Twitter': ['@name', '@url()'],
       'Youtube': ['@name', '@url()'],
-      'G+': '@url()'
+      'G+': ['@name', '@url()']
     },
     'intro': '@cparagraph(5, 10)'
   }
