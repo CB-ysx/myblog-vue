@@ -13,7 +13,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     { path: '/',
-      name: 'Admin',
+      name: 'admin',
       component: Admin,
       children: [
         // article
@@ -33,13 +33,13 @@ export default new Router({
           ]
         },
         // timelines
-        { path: '/Timelines',
-          name: 'Timelines',
+        { path: '/timelines',
+          name: 'timelines',
           component: Timelines
         },
         // imgaes
-        { path: '/Images',
-          name: 'Images',
+        { path: '/images',
+          name: 'images',
           component: Images
         },
         // profile
@@ -49,8 +49,8 @@ export default new Router({
         }
       ]
     },
-    { path: '/Login',
-      name: 'Login',
+    { path: '/login',
+      name: 'login',
       component: Login
     }
   ]
