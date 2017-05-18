@@ -6,9 +6,9 @@
 
 ![]()
 
-## Project Directory 
+## Project Directory
 
-``` 
+```
 ├── build
 ├── config
 ├── node_modules
@@ -75,7 +75,7 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 
 ## To Do List
 
-####  Features  For Public 
+####  Features  For Public
 
 - [x] Blog (Article)
 - [x] Supportive Pay
@@ -93,8 +93,8 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 - [x] Publish Article (Markdown Editor)
 - [x] Manage Article
 - [x] TimeLines
-- [ ] Images Manage
-- [ ] Personal Information
+- [x] Images Manage
+- [x] Personal Information
 - [ ] General setting (Navigation)
 - [ ] Change Password
 
