@@ -262,13 +262,18 @@ const about = Mock.mock({
     'name': '@cname',
     'title': '@ctitle(20, 50)',
     'skills|6-20': ['@word(3,10)'],
-    'contact|2-6': {
-      'facebook': ['@name', '@url()'],
-      'GitHub': ['@name', '@url()'],
-      'Twitter': ['@name', '@url()'],
-      'Youtube': ['@name', '@url()'],
-      'G+': ['@name', '@url()']
-    },
+    'contact|2-6': [{
+      'name|+1': [
+        'Facebook',
+        'GitHub',
+        'Twitter',
+        'Youtube',
+        'Gmail',
+        'G+'
+      ],
+      'alias': '@first()',
+      'url': '@url()'
+    }],
     'intro': '@cparagraph(5, 10)'
   }
 })

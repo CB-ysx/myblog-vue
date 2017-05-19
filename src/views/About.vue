@@ -11,7 +11,7 @@
       </div>
       <h4 class="border-shadow">CONTACT</h4>
       <ul class="contact">
-        <li v-for="(contact, index) in state.contact">{{ index }}: <a class="underline" :href="contact[1]">{{ contact[0] }}</a></li>
+        <li v-for="(contact, index) in state.contact">{{ contact.name }}: <a class="underline" :href="contact.url">{{ contact.alias }}</a></li>
       </ul>
 
 
