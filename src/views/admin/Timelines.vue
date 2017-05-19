@@ -217,14 +217,14 @@ h3.title{
   flex: 1;
   flex-direction: column;
   line-height: 1.6em;
+}
+
+.list-manage{
   .show-box{
     &:hover{
       background: #DEEAF5;
     }
   }
-}
-
-.list-manage{
   .add-box{
     display: flex;
     .text-input{
