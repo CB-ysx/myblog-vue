@@ -263,6 +263,7 @@ const about = Mock.mock({
     'title': '@ctitle(20, 50)',
     'skills|6-20': ['@word(3,10)'],
     'contact|2-6': [{
+      'id|+1': 1,
       'name|+1': [
         'Facebook',
         'GitHub',
