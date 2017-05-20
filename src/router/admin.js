@@ -7,6 +7,7 @@ import Editor from '@/views/admin/Editor'
 import Timelines from '@/views/admin/Timelines'
 import Images from '@/views/admin/Images'
 import Profile from '@/views/admin/Profile'
+import Setting from '@/views/admin/Setting'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
         { path: '/profile',
           name: 'profile',
           component: Profile
+        },
+        // profile
+        { path: '/settings',
+          name: 'Setting',
+          component: Setting
         }
       ]
     },
