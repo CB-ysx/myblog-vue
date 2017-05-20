@@ -7,7 +7,7 @@
       {{ state.intro }} <br>
       <h4 class="border-shadow">SKILLS</h4>
       <div class="skills-box">
-        <span class="tag" v-for="skill in state.skills">{{ skill }}</span>
+        <span class="tag" v-for="skill in state.skills">{{ skill.skill }}</span>
       </div>
       <h4 class="border-shadow">CONTACT</h4>
       <ul class="contact">
