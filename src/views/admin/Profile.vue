@@ -224,7 +224,7 @@ export default {
       // Update a skill data
       this.$http.put(url + '/' + this.editSkillId).then(res => {
         console.log(res.data)
-        this.data.skills[this.skillMenu.index] = this.editSkillVal
+        this.data.skills[this.skillMenu.index].skill = this.editSkillVal
         // hide
         this.editSkillId = ''
       }, res => {
@@ -352,20 +352,20 @@ export default {
   h4{
     margin-bottom: 5px;
   }
-  .input-area{
-    max-width: 600px;
-    input,textarea{
-      width: 100%;
-      display: block;
-    }
-    textarea{
-      resize: vertical;
-      font: inherit;
-      min-height: 10rem;
-    }
-  }
   .list-manage{
     margin-top: 1em;
+  }
+}
+.input-area{
+  max-width: 600px;
+  input,textarea{
+    width: 100%;
+    display: block;
+  }
+  textarea{
+    resize: vertical;
+    font: inherit;
+    min-height: 10rem;
   }
 }
 .skills-box {
