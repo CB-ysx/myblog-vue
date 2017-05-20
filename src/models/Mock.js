@@ -283,16 +283,17 @@ const about = Mock.mock({
 })
 // pay-images
 const payImages = Mock.mock({
-  'data': {
-    'alipay': {
-      'url': Random.image('160x160', '#01A0E9', '#FFFFFF', '支付宝'),
-      'title': '支付宝'
-    },
-    'wechat': {
-      'url': Random.image('160x160', '#00C800', '#FFFFFF', '微信付款'),
-      'title': '微信付款'
-    }
-  }
+  'data|2': [{
+    'id|+1': 1,
+    'url|+1': [
+      Random.image('160x160', '#01A0E9', '#FFFFFF', '支付宝'),
+      Random.image('160x160', '#00C800', '#FFFFFF', '微信付款')
+    ],
+    'title|+1': [
+      '支付宝',
+      '微信付款'
+    ]
+  }]
 })
 
 export default Mock
