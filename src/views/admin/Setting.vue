@@ -11,42 +11,65 @@
     </header>
     <!-- contents -->
     <div class="main-box" ref="main">
+      <!-- modify password -->
       <div class="password-box">
         <div class="input-field">
           <h5>Old Password:</h5>
           <div class="input-area">
-            <input type="password" v-model="oPassword"/>
+            <input :class="{ 'red-border': error[0]}" type="password" v-model="oPassword"/>
           </div>
         </div>
         <div class="input-field">
           <h5>New Password:</h5>
           <div class="input-area">
-            <input type="password" v-model="nPassword"/>
+            <input :class="{ 'red-border': error[1]}" type="password" v-model="nPassword"/>
           </div>
         </div>
         <div class="input-field">
           <h5>Verify Password:</h5>
           <div class="input-area">
-            <input type="password" v-model="vPassword"/>
+            <input :class="{ 'red-border': error[2]}" type="password" v-model="vPassword" @keyup.enter="submit"/>
           </div>
         </div>
         <div class="btn-box">
-          <button type="button" ref="save" class="btn error" name="save">Chang Password</button>
+          <button type="button" ref="save" class="btn error" @click="submit">Chang Password</button>
         </div>
       </div>
-      <!-- skills -->
-      <div class="password-box">
+      <!-- pay images -->
+      <div class="pay-images-box">
         <header class="border-shadow">
           <h4>Pay Image</h4>
         </header>
+        <div class="pay-images">
+          <div class="pay" v-for="(payImage, index) in payImages" @contextmenu.prevent="$refs.ctxMenu.open($event, {id: payImage.id, index: index, title: payImage.title})">
+            <img :src="payImage.url" :alt="payImage.title" :title="payImage.title">
+            <h5 class="title">
+              <div v-show="editPayImgId !== payImage.id" class="title-text">
+                {{ payImage.title }}
+              </div>
+              <input v-if="editPayImgId === payImage.id" v-focus type="text" v-model="editPayImgVal" @keyup.enter="editPayImg(this)">
+            </h5>
+          </div>
+          <div class="upload-box">
+            <div class="upload-action">
+              <h5> Click or Drag and Drop files here upload </h5>
+            </div>
+          </div>
+          <!-- pay images context menu -->
+          <context-menu id="context-menu" ref="ctxMenu" @ctx-open="onCtxOpen($event)" @ctx-cancel="onCtxCancel" @contextmenu.prevent>
+            <li class="option" @click="editPayImgId = payImageMenu.id; editPayImgVal = payImageMenu.title;" @contextmenu.prevent>Edit</li>
+            <li class="option" @click="delPay(payImageMenu.id)" @contextmenu.prevent>Delete</li>
+          </context-menu>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import contextMenu from 'vue-context-menu'
 
-let url = ''
+// let url = ''
 export default {
   name: 'setting',
   data () {
@@ -54,16 +77,117 @@ export default {
       title: 'Setting',
       oPassword: '',
       nPassword: '',
-      vPassword: ''
+      vPassword: '',
+      payImages: '',
+      payImageMenu: '',
+      editPayImgId: '',
+      editPayImgVal: '',
+      error: [false, false, false]
+    }
+  },
+  components: {
+    contextMenu
+  },
+  watch: {
+    oPassword: function (val) {
+      if (!val.length) {
+        this.error[0] = true
+      } else {
+        this.error[0] = false
+      }
+    },
+    nPassword: function (val) {
+      if (!val.length) {
+        this.error[1] = true
+      } else {
+        this.error[1] = false
+      }
+    },
+    vPassword: function (val) {
+      if (this.nPassword !== val) {
+        this.error[2] = true
+      } else {
+        this.error[2] = false
+      }
     }
   },
   methods: {
+    preventScroll: (event) => {
+      if (event.type === 'mousewheel') {
+        event.preventDefault()
+        return false
+      }
+      if (event.keyCode === 38) {
+        event.preventDefault()
+        return false
+      }
+      if (event.keyCode === 40) {
+        event.preventDefault()
+        return false
+      }
+    },
+    // Context Menu
+    onCtxOpen: function (locals) {
+      console.log(this)
+      this.$refs.main.addEventListener('mousewheel', this.preventScroll)
+      window.addEventListener('keydown', this.preventScroll)
+      this.payImageMenu = locals
+      console.log(this.payImageMenu)
+    },
+    onCtxCancel: function (locals) {
+      console.log(123)
+      this.$refs.main.removeEventListener('mousewheel', this.preventScroll)
+      window.removeEventListener('keydown', this.preventScroll)
+      this.payImageMenu = ''
+    },
+    // Pay image
+    editPayImg: function () {
+      if (this.editPayImgVal === this.payImageMenu.title) {
+        this.editPayImgId = ''
+        return false
+      }
+      // Update a pay image data
+      this.$http.put('/' + this.editPayImgId, { title: this.editPayImgVal }).then(res => {
+        console.log(res.data)
+        this.payImages[this.payImageMenu.index].title = this.editPayImgVal
+        // hide
+        this.editPayImgId = ''
+      }, res => {
+        console.log(res)
+      })
+    },
+    submit: function () {
+      if (!this.oPassword.length) {
+        console.log('oPassword')
+        this.error[0] = true
+      } else if (!this.nPassword.length) {
+        this.error[1] = true
+      } else if (this.nPassword === this.vPassword) {
+        this.error[2] = true
+      } else {
+        for (var i = 0; i < this.error.length; i++) {
+          if (this.error[i]) {
+            this.error[i] = false
+          }
+        }
+        // modify password
+        this.$http.put('/modify', { oPassword: this.oPassword, nPassword: this.nPassword }).then(res => {
+          console.log(res.data)
+          this.payImages[this.payImageMenu.index].title = this.editPayImgVal
+          // hide
+          this.editPayImgId = ''
+        }, res => {
+          console.log(res)
+        })
+      }
+    }
   },
   mounted () {
-    url = this.$root.$data.pay
+    // url = this.$root.$data.pay
     // Get the Setting data
-    this.$http.get(url).then(res => {
-      console.log(res.data.contact)
+    this.$http.get('/pay').then(res => {
+      console.log(res.data)
+      this.payImages = res.data
     }, res => {
       console.log(res)
     })
@@ -90,8 +214,45 @@ export default {
   }
   .password-box{
     .btn-box{
-      margin-top: 1em;
+      margin-top: 1.5em;
     }
   }
+  .pay-images{
+    padding-top: 1em;
+    .pay{
+      border: 1px solid #dfe1e3;
+      border-radius: 5px;
+      box-shadow: 0 0 8px #ccc;
+      display: inline-block;
+      padding: 0.5em 1em 0;
+      margin-right: 1em;
+      text-align: center;
+      img{
+        border-radius: 5px;
+        display: inline-block;
+      }
+      .title{
+        margin: 0.5em 0;
+      }
+      .title-text{
+        padding: 1px 0;
+      }
+      input{
+        padding: 0 8px;
+        width: 160px;
+      }
+    }
+    .upload-box{
+      vertical-align: top;
+      display: inline-block;
+      .upload-action{
+        width: 160px;
+        height: 160px;
+      }
+    }
+  }
+}
+.red-border{
+  border-color: red !important;
 }
 </style>
