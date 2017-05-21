@@ -95,8 +95,8 @@ Modern browsers and Internet Explorer 9+.(As with vue.js)
 - [x] TimeLines
 - [x] Images Manage
 - [x] Personal Information
-- [ ] General setting (Navigation)
-- [ ] Change Password
+- [x] General setting (Navigation)
+- [x] Change Password
 
 #### Development
 
