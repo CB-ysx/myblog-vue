@@ -46,7 +46,7 @@
     </div>
     <!-- upload -->
     <div class="upload-box" v-show="showUpload">
-      <vue-clip :options="options">
+      <vue-clip :options="options" :on-init="init" :on-added-file="addedFile" :on-sending="sending" :on-queue-complete="queueCompleted">
         <!-- upload area -->
         <template slot="clip-uploader-action" scope="params">
           <div :class="{'is-dragging': params.dragging}" class="upload-action">
@@ -104,13 +104,68 @@ export default {
       editText: '',
       showUpload: false,
       options: {
-        url: this.$root.$data.image,
-        // parallelUploads: 3,
+        url: '//localhost:3000/private/image',
+        // parallelUploads: 2,
+        // uploadMultiple: true,
+        autoProcessQueue: false,
         acceptedFiles: 'image/*'
-      }
+      },
+      files: 0,
+      baseUrls: new Set()
     }
   },
   methods: {
+    init (uploader) {
+      this._upload = uploader.uploader._uploader
+    },
+    addedFile (file) {
+      let that = this
+      let addOption = this._upload.options
+      // to set default setting
+      addOption.autoProcessQueue = false
+      that.baseUrls.clear()
+
+      this._upload.on('thumbnail', function (file, dataUrl) {
+        // console.log(that.baseUrls.length)
+        // if (that.baseUrls[that.baseUrls.length - 1] === dataUrl) {
+        //   return
+        // } else {
+        //   that.baseUrls.push(dataUrl)
+        // }
+
+        // reduce duplication run and count files has make thumbnail
+        if (that.baseUrls.has(dataUrl)) {
+          return
+        } else {
+          that.baseUrls.add(dataUrl)
+        }
+
+        // make thumbnail, and to upload
+        if (file.status === 'queued') {
+          setTimeout(((function (_this) {
+            return function () {
+              addOption.autoProcessQueue = true
+              return _this.processQueue()
+            }
+          })(this)), 800 * addOption.parallelUploads / 2)
+        }
+
+        // make all thumbnails and then to upload
+        // if (that.baseUrls.size === this.getQueuedFiles().length) {
+        //   addOption.autoProcessQueue = true
+        //   console.log(addOption.autoProcessQueue)
+        //   setTimeout(((function (_this) {
+        //     return function () {
+        //       return _this.processQueue()
+        //     }
+        //   })(this)), 1000)
+        // }
+      })
+    },
+    sending (file, xhr, formData) {
+      // console.log(file.dataUrl)
+      formData.append('baseImg', file.dataUrl)
+    },
     showImgDetail: function (id) {
       this.curent = id
       console.log(this.editId)
