@@ -41,6 +41,7 @@
           <h4>Pay Image</h4>
         </header>
         <div class="pay-images">
+          <!-- show -->
           <div class="pay" v-for="(payImage, index) in payImages" @contextmenu.prevent="$refs.ctxMenu.open($event, {id: payImage.id, index: index, title: payImage.title})">
             <img :src="payImage.url" :alt="payImage.title" :title="payImage.title">
             <h5 class="title">
@@ -50,10 +51,31 @@
               <input v-if="editPayImgId === payImage.id" v-focus type="text" v-model="editPayImgVal" @keyup.enter="editPayImg(this)">
             </h5>
           </div>
+          <!-- upload image show -->
+          <div class="pay" v-for="(file, index) in files" @contextmenu.prevent="$refs.ctxMenu.open($event, {id: file.id, index: index, title: file.title})">
+            <img :src="file.dataUrl" :alt="file.name" :title="file.name" width="160" height="160">
+            <h5 class="title">
+              <div v-show="editPayImgId !== file.id && file.status === 'success'" class="title-text">
+                {{ file.name }}
+              </div>
+              <div class="file-progress" v-if="file.status !== 'error' && file.status !== 'success'">
+                <span :style="{ width: file.progress + '%' }"> </span>
+              </div>
+              <div v-if="file.status === 'error'" class="title-text">
+                {{ file.status }}
+              </div>
+              <input v-if="editPayImgId === file.id && file.status === 'success'" v-focus type="text" v-model="editPayImgVal" @keyup.enter="editPayImg(this)">
+            </h5>
+          </div>
           <div class="upload-box">
-            <div class="upload-action">
-              <h5> Click or Drag and Drop files here upload </h5>
-            </div>
+            <vue-clip :options="options" :on-added-file="addedFile" :on-complete="complete">
+              <!-- upload area -->
+              <template slot="clip-uploader-action" scope="params">
+                <div :class="{'is-dragging': params.dragging}" class="upload-action">
+                  <div class="dz-message"><h5> Click or Drag and Drop files here upload </h5></div>
+                </div>
+              </template>
+            </vue-clip>
           </div>
           <!-- pay images context menu -->
           <context-menu id="context-menu" ref="ctxMenu" @ctx-open="onCtxOpen($event)" @ctx-cancel="onCtxCancel" @contextmenu.prevent>
@@ -82,7 +104,16 @@ export default {
       payImageMenu: '',
       editPayImgId: '',
       editPayImgVal: '',
-      error: [false, false, false]
+      error: [false, false, false],
+      options: {
+        url: '//localhost:3000/private/image',
+        parallelUploads: 1,
+        // uploadMultiple: true,
+        thumbnailWidth: 160,
+        thumbnailHeight: 160,
+        acceptedFiles: 'image/*'
+      },
+      files: []
     }
   },
   components: {
@@ -180,6 +211,13 @@ export default {
           console.log(res)
         })
       }
+    },
+    // pay image upload
+    addedFile: function (file) {
+      this.files.push(file)
+    },
+    complete: function (file, status, xhr) {
+      file.addAttribute('id', xhr.response.id)
     }
   },
   mounted () {
@@ -225,8 +263,9 @@ export default {
       box-shadow: 0 0 8px #ccc;
       display: inline-block;
       padding: 0.5em 1em 0;
-      margin-right: 1em;
+      margin: 0 1em 1em 0;
       text-align: center;
+      vertical-align: top;
       img{
         border-radius: 5px;
         display: inline-block;
@@ -240,6 +279,17 @@ export default {
       input{
         padding: 0 8px;
         width: 160px;
+      }
+      .file-progress{
+        padding: 2px 0;
+        height: 4px;
+        background: #eee;
+        position: relative;
+        span{
+          display: block;
+          height: 100%;
+          background: #5cb85c;
+        }
       }
     }
     .upload-box{
