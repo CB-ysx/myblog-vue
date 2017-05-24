@@ -46,7 +46,7 @@
     </div>
     <!-- upload -->
     <div class="upload-box" v-show="showUpload">
-      <vue-clip :options="options" :on-init="init" :on-added-file="addedFile" :on-sending="sending" :on-queue-complete="queueCompleted">
+      <vue-clip :options="options" :on-init="init" :on-added-file="addedFile" :on-sending="sending" :on-complete="complete">
         <!-- upload area -->
         <template slot="clip-uploader-action" scope="params">
           <div :class="{'is-dragging': params.dragging}" class="upload-action">
@@ -141,30 +141,35 @@ export default {
         }
 
         // make thumbnail, and to upload
-        if (file.status === 'queued') {
+        // if (file.status === 'queued') {
+        //   setTimeout(((function (_this) {
+        //     return function () {
+        //       addOption.autoProcessQueue = true
+        //       return _this.processQueue()
+        //     }
+        //   })(this)), 800 * addOption.parallelUploads / 2)
+        // }
+
+        // make all thumbnails and then to upload
+        if (that.baseUrls.size >= this.getQueuedFiles().length / 3 * 2) {
+          console.log(addOption.autoProcessQueue)
           setTimeout(((function (_this) {
             return function () {
               addOption.autoProcessQueue = true
               return _this.processQueue()
             }
-          })(this)), 800 * addOption.parallelUploads / 2)
+          })(this)), 1000)
         }
-
-        // make all thumbnails and then to upload
-        // if (that.baseUrls.size === this.getQueuedFiles().length) {
-        //   addOption.autoProcessQueue = true
-        //   console.log(addOption.autoProcessQueue)
-        //   setTimeout(((function (_this) {
-        //     return function () {
-        //       return _this.processQueue()
-        //     }
-        //   })(this)), 1000)
-        // }
       })
     },
     sending (file, xhr, formData) {
       // console.log(file.dataUrl)
       formData.append('baseImg', file.dataUrl)
+    },
+    complete (file, status, xhr) {
+      if (xhr.response) {
+        file.addAttribute('id', xhr.response.id)
+      }
     },
     showImgDetail: function (id) {
       this.curent = id
