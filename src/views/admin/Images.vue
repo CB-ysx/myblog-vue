@@ -341,6 +341,7 @@ export default {
   }
   .upload-box{
     display: flex;
+    overflow-y: auto;
     flex-direction: column;
     border-left: 1px solid rgba(0, 0, 0, 0.25);
     animation: showToleft .5s forwards;
