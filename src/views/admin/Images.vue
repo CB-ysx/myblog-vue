@@ -57,7 +57,7 @@
         <template slot="clip-uploader-body" scope="props">
           <div class="upload-list">
             <ul>
-              <li v-for="file in props.files">
+              <li v-for="(file, index) in props.files">
                 <div class="file-avatar">
                   <img v-bind:src="file.dataUrl" />
                 </div>
@@ -71,7 +71,7 @@
                     <span class="file-status">{{ file.status }}</span>
                   </div>
                 </div>
-                <div class="btn-box" v-if="file.status === 'success'">
+                <div class="btn-box" v-if="file.status === 'success'" @click="delUploadImg(index, props.files)">
                   <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6820" class="icon del-icon">
                     <path d="M286.974967 895.097188c-8.493441 0-15.349593-6.856152-15.349593-15.349593l0-595.052554c0-8.493441 6.856152-15.349593 15.349593-15.349593s15.349593 6.856152 15.349593 15.349593l0 595.052554C302.32456 888.138706 295.468408 895.097188 286.974967 895.097188z" p-id="6821"></path>
                     <path d="M735.285412 895.097188l-448.310446 0c-8.493441 0-15.349593-6.856152-15.349593-15.349593s6.856152-15.349593 15.349593-15.349593l448.310446 0c8.493441 0 15.349593 6.856152 15.349593 15.349593S743.778854 895.097188 735.285412 895.097188z" p-id="6822"></path>
@@ -168,7 +168,7 @@ export default {
     },
     complete (file, status, xhr) {
       if (xhr.response) {
-        file.addAttribute('id', xhr.response.id)
+        file['id'] = JSON.parse(xhr.response).id
       }
     },
     showImgDetail: function (id) {
@@ -192,6 +192,17 @@ export default {
         })
       }
       this.editId = ''
+    },
+    delUploadImg: function (index, files) {
+      console.log(files)
+      this.$http.delete(url + '/' + files[index]['id']).then(res => {
+        if (res.data === 'deleted') {
+          files.splice(index, 1)
+        }
+        console.log(res.data)
+      }, res => {
+        console.log(res)
+      })
     }
   },
   mounted () {
