@@ -27,7 +27,7 @@
       </section>
       <!-- Markdown preview -->
       <section class="preview-md">
-        <preview :contents="contents"></preview>
+        <preview :contents="contents" @origin-md-change="updateMd"></preview>
         <footer class="foot">Preview</footer>
       </section>
     </section>
@@ -104,6 +104,9 @@ export default {
           console.log(res)
         })
       }
+    },
+    updateMd: function (val) {
+      this.contents = val
     }
   },
   updated () {

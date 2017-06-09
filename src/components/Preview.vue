@@ -6,7 +6,7 @@
   <div class="preview-box" id="preview">
     <link href="//cdn.bootcss.com/github-markdown-css/2.4.1/github-markdown.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-    <section class="preview markdown-body" v-html="markdownHtml(contents)">
+    <section class="preview markdown-body" v-html="markdownHtml(context)">
     </section>
   </div>
 </template>
@@ -17,10 +17,40 @@ import { markdown } from '@/filters/markdown'
 export default {
   name: 'preview',
   props: ['contents'],
+  data () {
+    return {
+      context: this.contents
+    }
+  },
+  watch: {
+    contents (val) {
+      this.context = val
+    },
+    context (val) {
+      this.$emit('origin-md-change', val)
+    }
+  },
   methods: {
     // parse the markdown language to HTML method
     markdownHtml: function (str) {
       return markdown(str, true)
+    },
+    replaceByIndex: function (str, march, index, newStr) {
+      let temp = str.match(march)
+      let x = str.split(march)
+      let num = -1
+      let i = 0
+      for (let len = x.length; i < len; i++) {
+        if (typeof x[i] === 'undefined') {
+          ++num
+          if (num === index) {
+            x[i] = newStr
+          } else {
+            x[i] = temp[num]
+          }
+        }
+      }
+      return x.join('')
     }
   },
   updated () {
@@ -34,16 +64,32 @@ export default {
         }, true)
         // upload the image
         input.addEventListener('change', (e) => {
-          // let filename = input.files[0].name
-          // console.log(this.contents.split(/!\[(\w||\s)*\]\(\)/g))
+          // function replaceByIndex (str, march, index, newStr) {
+          //   let x = str.split(march)
+          //   let num = -1
+          //   let i = 0
+          //   for (len = x.length; i < len; i++) {
+          //     if (typeof x[i] === 'undefined') {
+          //       ++num
+          //       if (num === index) {
+          //         x[i] = newStr
+          //       } else {
+          //         x[i] = '![]()'
+          //       }
+          //     }
+          //   }
+          //   return x.join('')
+          // }
+
           let data = new FormData()
+          let filename = input.files[0].name
           data.append('image', input.files[0])
           this.$http.post('/private/image', data).then(res => {
-            console.log(res)
-            let img = new Image()
-            img.src = '123'
-            uploads[i].nextSibling.appendChild(img)
-            uploads[i].remove()
+            // let img = new Image()
+            // img.src = '123'
+            // uploads[i].nextSibling.appendChild(img)
+            // uploads[i].remove()
+            this.context = this.replaceByIndex(this.contents, /!\[(\w|\s)*\]\(\)/g, i, `![${filename}](${res.url})`)
           }, res => {
             console.log(res)
           })
@@ -57,8 +103,9 @@ export default {
             let file = e.clipboardData.items[0].getAsFile()
             let data = new FormData()
             data.append('image', file)
-            this.$http.post('/url', data).then(res => {
+            this.$http.post('/private/image', data).then(res => {
               console.log(res)
+              this.context = this.replaceByIndex(this.contents, /!\[(\w|\s)*\]\(\)/g, i, `![](${res.url})`)
             }, res => {
               console.log(res)
             })
