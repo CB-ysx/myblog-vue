@@ -4,7 +4,7 @@
 
 ## Demo
 
-![]()
+![Demo](/joriscai/myblog-vue/blob/master/demo.gif?raw=true)
 
 ## Project Directory
 
