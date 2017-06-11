@@ -4,7 +4,7 @@
 
 ## Demo
 
-![Demo](/joriscai/myblog-vue/blob/master/demo.gif?raw=true)
+![Demo](https://raw.githubusercontent.com/joriscai/myblog-vue/master/demo.gif)
 
 ## Project Directory
 
