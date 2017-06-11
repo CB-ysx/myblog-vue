@@ -15,8 +15,5 @@ node_js:
   - "6"
   - "7"
 
-before_install:
-  google-chrome-stable --headless
-
 script:
   - npm run test
