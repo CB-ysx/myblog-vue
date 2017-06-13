@@ -7,9 +7,11 @@ import VueResource from 'vue-resource'
 import Mock from './models/Mock' // eslint-disable-line
 import MockPrivate from './models/Mock-private' // eslint-disable-line
 import VueClip from 'vue-clip'
+import Vuelidate from 'vuelidate'
 
 Vue.use(VueClip)
 Vue.use(VueResource)
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false  // 关闭提示处于开发环境
 
