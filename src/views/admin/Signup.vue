@@ -65,6 +65,7 @@ export default {
   },
   methods: {
     submit: function ($v) {
+      $v.$touch()
       if (!$v.$invalid) {
         let data = {
           username: this.Email,

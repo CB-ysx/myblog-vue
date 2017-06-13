@@ -6,26 +6,41 @@
   <div class="full-bg">
     <div class="login">
       <div class="input-box">
-        <input class="login-input" v-focus :class="{'error': e_error}" type="text" v-model.lazy="Email" placeholder="Email Address">
+        <input class="login-input" :class="{'error': $v.Email.$error}" type="text" @input="$v.Email.$touch()" v-model.trim="Email" placeholder="Email Address">
       </div>
       <div class="input-box">
-        <input class="login-input" :class="{'error': p_error}" @keyup.enter="submit" type="password" v-model.lazy="Password" placeholder="Password">
+        <input class="login-input" :class="{'error': $v.password.$error}" @keyup.enter="submit($v)" @input="$v.password.$touch()" type="password" v-model.trim="password" placeholder="Password">
       </div>
-      <button type="button" class="btn" @click="submit">Login</button>
+      <button type="button" class="btn" @click="submit($v)">Login</button>
+      <div class="error-text">
+        <span v-if="$v.Email.$error">Email is invalid.</span>
+        <span v-if="!$v.password.required && $v.password.$error">Password must required.</span>
+        <span v-if="!$v.password.minLength">Password must have at least {{ $v.password.$params.minLength.min }} letters.</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { required, minLength, email } from 'vuelidate/lib/validators'
+
+let url = ''
 export default {
   name: 'login',
   data () {
     return {
-      email_test: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/g,
       Email: '',
-      Password: '',
-      e_error: '',
-      p_error: ''
+      password: ''
+    }
+  },
+  validations: {
+    Email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(6)
     }
   },
   directives: {
@@ -36,35 +51,22 @@ export default {
       }
     }
   },
-  watch: {
-    Email: function () {
-      if (!this.email_test.test(this.Email)) {
-        this.e_error = true
-      } else {
-        this.e_error = false
+  methods: {
+    submit: function ($v) {
+      $v.$touch()
+      let data = {
+        username: this.Email,
+        password: this.password
       }
-    },
-    Password: function () {
-      this.p_error = (this.Password === '')
-      console.log('pwd change ' + this.p_error)
+      this.$http.post(url, data).then(res => {
+        console.log(res.data)
+      }, res => {
+        console.log(res)
+      })
     }
   },
-  methods: {
-    submit: function () {
-      if (!this.e_error && this.e_error !== ''
-          && !this.p_error && this.p_error !== '') {
-        console.log(true)
-        // ajax
-      } else if (this.e_error === false) {
-        this.p_error = true
-        console.log('p ' + false)
-      } else if ((this.p_error === false || this.p_error === '') && this.e_error === '') {
-        this.e_error = true
-        console.log('e ' + false)
-      } else if (this.e_error && this.p_error) {
-        console.log('all ' + false)
-      }
-    }
+  mounted () {
+    url = this.$root.$data.login
   }
 }
 </script>
@@ -91,6 +93,9 @@ export default {
     .error{
       border-color: red!important;
     }
+  }
+  .error-text{
+    color: red;
   }
   .login-input{
     padding: 10px;
