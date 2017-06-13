@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Admin from '@/views/admin/Admin'
 import Login from '@/views/admin/Login'
+import Signup from '@/views/admin/Signup'
 import Articles from '@/views/admin/Articles'
 import Editor from '@/views/admin/Editor'
 import Timelines from '@/views/admin/Timelines'
@@ -58,6 +59,10 @@ export default new Router({
     { path: '/login',
       name: 'login',
       component: Login
+    },
+    { path: '/signup',
+      name: 'signup',
+      component: Signup
     }
   ]
 })
