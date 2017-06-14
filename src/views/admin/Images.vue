@@ -327,6 +327,7 @@ export default {
     padding: 0.5em;
   }
   .main{
+    flex: 1;
     li{
       text-align: center;
       display: inline-block;

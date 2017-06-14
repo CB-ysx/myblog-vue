@@ -201,6 +201,7 @@ export default {
     border-bottom: 3px solid #42b983;
     margin: 0;
     position: absolute;
+    bottom: 0;
   }
   .title:focus + .line{
     animation: borderLineShow .5s forwards;

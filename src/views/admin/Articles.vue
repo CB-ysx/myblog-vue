@@ -136,7 +136,8 @@ export default {
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3;
       text-overflow: ellipsis;
-      height: 3.5em;
+      height: 3.7rem;
+      line-height: 1.3rem;
       overflow: hidden;
     }
   }
