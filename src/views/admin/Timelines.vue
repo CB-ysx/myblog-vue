@@ -170,8 +170,10 @@ export default {
       return this.timeLines.sort(this.compare)
     }
   },
+  beforeCreate () {
+    url = window.blogUrl.timeline
+  },
   mounted () {
-    url = this.$root.$data.timeline
     // Get the Timelines List data
     this.$http.get(url).then(res => {
       console.log(res.data)

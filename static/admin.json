@@ -1,0 +1,15 @@
+{
+  "status": "/private/status",
+  "signup": "/private/signup",
+  "login": "/private/login",
+  "logout": "/private/logout",
+  "modify": "/private/modify",
+  "article": "/private/article",
+  "timeline": "/private/timeline",
+  "image": "/private/image",
+  "about": "/private/about",
+  "pay": "/private/pay",
+  "articleImg": "/private/articleImg",
+  "skill": "/private/skill",
+  "contact": "/private/contact"
+}

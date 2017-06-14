@@ -81,7 +81,7 @@ export default {
     }
   },
   mounted () {
-    url = this.$root.$data.signup
+    url = window.blogUrl.signup
   }
 }
 </script>

@@ -12,8 +12,8 @@
       </div>
       <!-- Publish and Save button -->
       <div class="btn-box">
-        <button type="button" ref="publish" class="btn success" :value="curent" @click="publishArticle" name="publish">Publish</button>
-        <button type="button" ref="save" class="btn primary" :value="curent" @click="saveArticle" name="save">Save</button>
+        <button type="button" ref="publish" class="btn success" @click="publishArticle" name="publish">Publish</button>
+        <button type="button" ref="save" class="btn primary" @click="saveArticle" name="save">Save</button>
       </div>
     </header>
     <section class="input-preview">
@@ -36,6 +36,8 @@
 
 <script>
 import Preview from '@/components/Preview'
+
+let url = ''
 
 let editor = null
 let preview = null
@@ -77,13 +79,13 @@ export default {
     publishArticle: function () {
       console.log('publish')
       if (this.id) { // update article by id
-        this.$http.put(this.$root.$data.article + '/' + this.id, { title: this.title, contents: this.contents }).then(res => {
+        this.$http.put(url + '/' + this.id, { title: this.title, contents: this.contents }).then(res => {
           console.log(res)
         }, res => {
           console.log(res)
         })
       } else { // add a article
-        this.$http.post(this.$root.$data.article, { title: this.title, contents: this.contents }).then(res => {
+        this.$http.post(url, { title: this.title, contents: this.contents }).then(res => {
           console.log(res)
         }, res => {
           console.log(res)
@@ -92,13 +94,13 @@ export default {
     },
     saveArticle: function () {
       if (this.id) { // update article by id
-        this.$http.put(this.$root.$data.article + '/' + this.id, { title: this.title, contents: this.contents, status: 0 }).then(res => {
+        this.$http.put(url + '/' + this.id, { title: this.title, contents: this.contents, status: 0 }).then(res => {
           console.log(res)
         }, res => {
           console.log(res)
         })
       } else { // add a article
-        this.$http.post(this.$root.$data.article, { title: this.title, contents: this.contents, status: 0 }).then(res => {
+        this.$http.post(url, { title: this.title, contents: this.contents, status: 0 }).then(res => {
           console.log(res)
         }, res => {
           console.log(res)
@@ -117,6 +119,9 @@ export default {
     preHeight = preview.scrollHeight
     editHeight = editor.scrollHeight
   },
+  beforeCreate () {
+    url = window.blogUrl.article
+  },
   mounted () {
     // get the Element
     editor = this.$refs.editor
@@ -133,7 +138,7 @@ export default {
     console.log(id)
     if (id) {
       // Get the Article by id
-      this.$http.get(this.$root.$data.article + '/' + id).then(res => {
+      this.$http.get(url + '/' + id).then(res => {
         this.title = res.data.title
         this.contents = res.data.contents
       }, res => {

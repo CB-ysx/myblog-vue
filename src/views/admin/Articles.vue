@@ -56,6 +56,7 @@
 <script>
 import Preview from '@/components/Preview'
 
+let url = ''
 export default {
   name: 'articles',
   data () {
@@ -75,7 +76,7 @@ export default {
     showArticle: function (item) {
       this.title = item.title
       this.curent = item.id
-      this.$http.get(this.$root.$data.article + '/' + item.id).then(res => {
+      this.$http.get(url + '/' + item.id).then(res => {
         this.contents = res.data.contents
       }, res => {
         console.log(res)
@@ -96,9 +97,12 @@ export default {
       console.log(this.$refs.delete.value)
     }
   },
+  beforeCreate () {
+    url = window.blogUrl.article
+  },
   mounted () {
     // Get the Articles List data
-    this.$http.get(this.$root.$data.article).then(res => {
+    this.$http.get(url).then(res => {
       this.articles = res.data
     }, res => {
       console.log(res)

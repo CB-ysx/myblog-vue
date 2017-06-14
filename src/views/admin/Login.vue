@@ -66,7 +66,7 @@ export default {
     }
   },
   mounted () {
-    url = this.$root.$data.login
+    url = window.blogUrl.login
   }
 }
 </script>

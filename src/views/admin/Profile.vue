@@ -9,7 +9,7 @@
         {{ title }}
       </h3>
       <div class="btn-box">
-        <button type="button" ref="save" class="btn success" :value="curent" @click="" name="save">Save</button>
+        <button type="button" ref="save" class="btn success" @click="" name="save">Save</button>
       </div>
     </header>
     <!-- contents -->
@@ -154,6 +154,8 @@
 import contextMenu from 'vue-context-menu'
 
 let url = ''
+let skillUrl = ''
+let contUrl = ''
 export default {
   name: 'profile',
   data () {
@@ -205,7 +207,7 @@ export default {
     addSkill: function () {
       console.log(this.addSkillVal)
       // Add a skill data
-      this.$http.post(url, {skill: this.addSkillVal}).then(res => {
+      this.$http.post(skillUrl, {skill: this.addSkillVal}).then(res => {
         console.log(res.data)
         // this.data.skills.push({id: res.data.id, skill: this.addSkillVal})
         // hide
@@ -222,7 +224,7 @@ export default {
         return false
       }
       // Update a skill data
-      this.$http.put(url + '/' + this.editSkillId).then(res => {
+      this.$http.put(skillUrl + '/' + this.editSkillId).then(res => {
         console.log(res.data)
         this.data.skills[this.skillMenu.index].skill = this.editSkillVal
         // hide
@@ -234,7 +236,7 @@ export default {
     delSkill: function (id) {
       console.log('delete' + id)
       // Delete a skill data
-      this.$http.delete(url).then(res => {
+      this.$http.delete(skillUrl).then(res => {
         console.log(res.data)
         this.data.skills.splice(this.skillMenu.index, 1)
       }, res => {
@@ -262,7 +264,7 @@ export default {
         return
       }
       // Add a Contact data
-      this.$http.post(url).then(res => {
+      this.$http.post(contUrl).then(res => {
         console.log(res.data)
         // this.data.contact.push({ id: res.data.id, name: name, alias: alias, url: contactUrl })
         this.toAddCont = ''
@@ -290,7 +292,7 @@ export default {
         return
       }
       // Update a Contact data
-      this.$http.put(url + '/' + this.editContactId).then(res => {
+      this.$http.put(contUrl + '/' + this.editContactId).then(res => {
         console.log(res.data)
         // update components data
         // this.timeLines[this.dataIndex].date = time
@@ -308,8 +310,8 @@ export default {
     },
     delContact: function () {
       console.log('delete ' + this.editContactId)
-      // Delete a Timeline data
-      this.$http.delete(url + '/' + this.editContactId).then(res => {
+      // Delete a Contact data
+      this.$http.delete(contUrl + '/' + this.editContactId).then(res => {
         console.log(res.data)
         // update components data
         this.data.contact.splice(this.editContact, 1)
@@ -320,8 +322,12 @@ export default {
       })
     }
   },
+  beforeCreate () {
+    url = window.blogUrl.about
+    skillUrl = window.blogUrl.skill
+    contUrl = window.blogUrl.contact
+  },
   mounted () {
-    url = this.$root.$data.about
     // Get the Profile List data
     this.$http.get(url).then(res => {
       console.log(res.data.contact)

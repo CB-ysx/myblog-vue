@@ -24,21 +24,25 @@ Vue.directive('focus', {
   }
 })
 
-// request url
-var urlData = {
-  article: '/private/article',
-  timeline: '/private/timeline',
-  image: '/private/image',
-  about: '/private/about'
-}
-
 /* eslint-disable no-unused-vars */
 var vm = new Vue({
   el: '#app',
   router,
   template: '<Admin/>',
   components: { Admin },
-  data: urlData
+  data () {
+    return {
+    }
+  },
+  beforeCreate () {
+    console.log('beCreate')
+    if (!window.blogUrl) {
+      let xmlHttp = new XMLHttpRequest()
+      xmlHttp.open('GET', '/static/admin.json', false)
+      xmlHttp.send(null)
+      window.blogUrl = JSON.parse(xmlHttp.responseText)
+    }
+  }
 })
 /* eslint-enable */
 

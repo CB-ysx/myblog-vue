@@ -104,7 +104,7 @@ export default {
       editText: '',
       showUpload: false,
       options: {
-        url: '//localhost:3000/private/image',
+        url: url,
         // parallelUploads: 2,
         // uploadMultiple: true,
         autoProcessQueue: false,
@@ -205,8 +205,10 @@ export default {
       })
     }
   },
+  beforeCreate () {
+    url = window.blogUrl.image
+  },
   mounted () {
-    url = this.$root.$data.image
     // Get the Images data
     this.$http.get(url).then(res => {
       console.log(res.data)

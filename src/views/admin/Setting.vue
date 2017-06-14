@@ -91,7 +91,9 @@
 <script>
 import contextMenu from 'vue-context-menu'
 
-// let url = ''
+let payUrl = ''
+let modifyUrl = ''
+
 export default {
   name: 'setting',
   data () {
@@ -106,7 +108,7 @@ export default {
       editPayImgVal: '',
       error: [false, false, false],
       options: {
-        url: '//localhost:3000/private/image',
+        url: payUrl,
         parallelUploads: 1,
         // uploadMultiple: true,
         thumbnailWidth: 160,
@@ -166,7 +168,7 @@ export default {
       console.log(this.payImageMenu)
     },
     onCtxCancel: function (locals) {
-      console.log(123)
+      console.log('cancel')
       this.$refs.main.removeEventListener('mousewheel', this.preventScroll)
       window.removeEventListener('keydown', this.preventScroll)
       this.payImageMenu = ''
@@ -178,7 +180,7 @@ export default {
         return false
       }
       // Update a pay image data
-      this.$http.put('/' + this.editPayImgId, { title: this.editPayImgVal }).then(res => {
+      this.$http.put(payUrl + '/' + this.editPayImgId, { title: this.editPayImgVal }).then(res => {
         console.log(res.data)
         this.payImages[this.payImageMenu.index].title = this.editPayImgVal
         // hide
@@ -202,7 +204,7 @@ export default {
           }
         }
         // modify password
-        this.$http.put('/modify', { oPassword: this.oPassword, nPassword: this.nPassword }).then(res => {
+        this.$http.put(modifyUrl, { oPassword: this.oPassword, nPassword: this.nPassword }).then(res => {
           console.log(res.data)
           this.payImages[this.payImageMenu.index].title = this.editPayImgVal
           // hide
@@ -220,10 +222,13 @@ export default {
       file.addAttribute('id', xhr.response.id)
     }
   },
+  beforeCreate () {
+    payUrl = window.blogUrl.pay
+    modifyUrl = window.blogUrl.modify
+  },
   mounted () {
-    // url = this.$root.$data.pay
     // Get the Setting data
-    this.$http.get('/pay').then(res => {
+    this.$http.get(payUrl).then(res => {
       console.log(res.data)
       this.payImages = res.data
     }, res => {
