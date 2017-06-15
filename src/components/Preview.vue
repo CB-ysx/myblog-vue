@@ -13,7 +13,8 @@
 
 <script>
 import { markdown } from '@/filters/markdown'
-// import simplemde from 'simplemde'
+
+let url = ''
 export default {
   name: 'preview',
   props: ['contents'],
@@ -53,6 +54,9 @@ export default {
       return x.join('')
     }
   },
+  beforeCreate () {
+    url = window.blogUrl.articleImg
+  },
   updated () {
     let uploads = document.querySelectorAll('.upload-box')
     if (uploads.length) {
@@ -84,7 +88,7 @@ export default {
           let data = new FormData()
           let filename = input.files[0].name
           data.append('image', input.files[0])
-          this.$http.post('/private/image', data).then(res => {
+          this.$http.post(url, data).then(res => {
             // let img = new Image()
             // img.src = '123'
             // uploads[i].nextSibling.appendChild(img)
@@ -103,7 +107,7 @@ export default {
             let file = e.clipboardData.items[0].getAsFile()
             let data = new FormData()
             data.append('image', file)
-            this.$http.post('/private/image', data).then(res => {
+            this.$http.post(url, data).then(res => {
               console.log(res)
               this.context = this.replaceByIndex(this.contents, /!\[(\w|\s)*\]\(\)/g, i, `![](${res.url})`)
             }, res => {
