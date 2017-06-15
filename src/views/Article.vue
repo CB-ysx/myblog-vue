@@ -54,14 +54,14 @@ export default {
   mounted () {
     // get to layout data
     console.log(this.$route.params.id)
-    this.$http.get(this.$root.$data.article + '/' + this.$route.params.id).then(res => {
+    this.$http.get(window.homeUrl.article + '/' + this.$route.params.id).then(res => {
       console.log(res.url)
       this.article = res.data
     }, res => {
       console.log(res)
     })
     // get the pay images
-    this.$http.get('/pay').then(res => {
+    this.$http.get(window.homeUrl.pay).then(res => {
       console.log(res.status)
       this.payImages = res.data
     }, res => {

@@ -61,7 +61,7 @@ export default {
   },
   mounted () {
     // get the timeLine datas
-    this.$http.get(this.$root.$data.image).then(res => {
+    this.$http.get(window.homeUrl.image).then(res => {
       console.log(res.data)
       this.images = res.data
     }, res => {

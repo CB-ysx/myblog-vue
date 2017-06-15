@@ -35,7 +35,7 @@ export default {
   },
   mounted () {
     // get the timeLine datas
-    this.$http.get(this.$root.$data.about).then(res => {
+    this.$http.get(window.homeUrl.about).then(res => {
       console.log(res.data)
       this.state = res.data
     }, res => {

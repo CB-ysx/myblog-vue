@@ -10,21 +10,25 @@ Vue.use(VueResource)
 
 Vue.config.productionTip = false  // 关闭提示处于开发环境
 
-// request url
-var urlData = {
-  article: '/article',
-  timeline: '/timeline',
-  image: '/image',
-  about: '/about'
-}
-
 /* eslint-disable no-unused-vars */
 var vm = new Vue({
   el: '#app',
   router,
   template: '<App/>',
   components: { App },
-  data: urlData
+  data () {
+    return {
+    }
+  },
+  beforeCreate () {
+    console.log('beCreate')
+    if (!window.homeUrl) {
+      let xmlHttp = new XMLHttpRequest()
+      xmlHttp.open('GET', '/static/index.json', false)
+      xmlHttp.send(null)
+      window.homeUrl = JSON.parse(xmlHttp.responseText)
+    }
+  }
 })
 
 /* eslint-enable */
