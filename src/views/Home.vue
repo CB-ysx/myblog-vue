@@ -4,7 +4,7 @@
       <section class="text-box" v-for="article in articles">
         <router-link :to="'/Article/'+ article.id">
           <h2><span class="title">{{article.title}}</span></h2>
-          <span class="date">{{article.date}}</span>
+          <span class="date">{{ article.created_at | toDateString }}</span>
           <section class="text">
             {{article.contents}}
           </section>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { toDateString } from '../filters/toDateString'
+
 export default {
   name: 'Home',
   data () {
@@ -22,6 +24,9 @@ export default {
       title: 'this is a home page',
       articles: []
     }
+  },
+  filters: {
+    toDateString
   },
   mounted () {
     this.$http.get(window.homeUrl.article).then(res => {

@@ -1,10 +1,13 @@
 <template>
   <div class="article container content">
     <div class="main">
-      <article>
+      <article v-if="article">
         <h1 class="title">{{ article.title }}</h1>
         <span class="date">{{ article.date }}</span>
         <preview :contents="article.contents"></preview>
+      </article>
+      <article v-if="!article">
+        <h2>该文章不存在！</h2>
       </article>
       <div class="article-footer center">
         <p>讨论请发邮件到<a id="email" :href="'mailto:'+ email">{{ email }}</a></p>
@@ -55,14 +58,13 @@ export default {
     // get to layout data
     console.log(this.$route.params.id)
     this.$http.get(window.homeUrl.article + '/' + this.$route.params.id).then(res => {
-      console.log(res.url)
-      this.article = res.data
+      console.log(res.data)
+      this.article = res.data[0]
     }, res => {
       console.log(res)
     })
     // get the pay images
     this.$http.get(window.homeUrl.pay).then(res => {
-      console.log(res.status)
       this.payImages = res.data
     }, res => {
       console.log(res)
