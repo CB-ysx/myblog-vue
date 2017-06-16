@@ -66,6 +66,16 @@ export default {
       }]
     }
   },
+  beforeRouteEnter (to, from, next) {
+    let auth = localStorage.getItem('login')
+    console.log(auth)
+    if (auth === 'false') {
+      next({ path: '/login' })
+    } else {
+      console.log('else')
+      next()
+    }
+  },
   methods: {
     menuToggle () {
       this.hidMenu = !this.hidMenu

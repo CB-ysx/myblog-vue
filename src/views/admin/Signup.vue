@@ -71,8 +71,9 @@ export default {
           username: this.Email,
           password: this.password
         }
-        this.$http.post(url, data).then(res => {
-          console.log(res.data)
+        this.$http.post(url, data, {emulateJSON: true}).then(res => {
+          alert(res.data)
+          this.$router.push({path: '/login'})
         }, res => {
           console.log(res)
         })

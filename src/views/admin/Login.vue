@@ -59,11 +59,22 @@ export default {
         password: this.password
       }
       this.$http.post(url, data).then(res => {
-        console.log(res.data)
+        alert(res.data)
+        localStorage.setItem('login', true)
+        this.$router.push({path: '/'})
       }, res => {
         console.log(res)
       })
     }
+  },
+  beforeCreate () {
+    this.$http.get(window.blogUrl.status).then(res => {
+      if (res.data === '0') {
+        this.$router.push({ path: '/signup' })
+      }
+    }, res => {
+      console.log(res)
+    })
   },
   mounted () {
     url = window.blogUrl.login
