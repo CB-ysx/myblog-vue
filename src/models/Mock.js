@@ -225,7 +225,7 @@ const pages = Mock.mock({
   'data|1-20': [{
     'id|+1': 1,
     'title': '@ctitle()',
-    'date': '@datetime("yyyy-MM-dd HH:mm:ss")',
+    'created_at': '@datetime("yyyy-MM-dd HH:mm:ss")',
     'contents': '@cparagraph(5, 15)'
   }]
 })
@@ -234,7 +234,7 @@ const page = Mock.mock({
   'data': {
     'id|1-10': 1,
     'title': '@ctitle()',
-    'date': '@datetime("yyyy-MM-dd HH:mm:ss")',
+    'created_at': '@datetime("yyyy-MM-dd HH:mm:ss")',
     // 'contents': '@cparagraph(100, 500)'
     'contents': art
   }
