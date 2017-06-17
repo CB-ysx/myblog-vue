@@ -3,7 +3,7 @@
     <div class="main">
       <article v-if="article">
         <h1 class="title">{{ article.title }}</h1>
-        <span class="date">{{ article.date }}</span>
+        <span class="date">{{ article.created_at | toDateString }}</span>
         <preview :contents="article.contents"></preview>
       </article>
       <article v-if="!article">
@@ -29,6 +29,7 @@
 <script>
 import ScrollTop from '@/components/ScrollTop'
 import Preview from '@/components/Preview'
+import { toDateString } from '../filters/toDateString'
 
 export default {
   name: 'article',
@@ -48,6 +49,9 @@ export default {
   components: {
     ScrollTop,
     Preview
+  },
+  filters: {
+    toDateString
   },
   methods: {
     showPay: function () {
