@@ -214,7 +214,10 @@ export default {
       console.log(res.data)
       this.images = res.data
     }, res => {
-      console.log(res)
+      console.log(res.status)
+      if (res.status === 401) {
+        this.$router.push({path: '/login'})
+      }
     })
   }
 }

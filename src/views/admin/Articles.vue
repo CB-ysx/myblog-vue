@@ -77,7 +77,8 @@ export default {
       this.title = item.title
       this.curent = item.id
       this.$http.get(url + '/' + item.id).then(res => {
-        this.contents = res.data.contents
+        console.log(res.data)
+        this.contents = res.data[0].contents
       }, res => {
         console.log(res)
       })
@@ -99,14 +100,17 @@ export default {
   },
   beforeCreate () {
     url = window.blogUrl.article
-  },
-  mounted () {
     // Get the Articles List data
     this.$http.get(url).then(res => {
       this.articles = res.data
     }, res => {
-      console.log(res)
+      console.log(res.status)
+      if (res.status === 401) {
+        this.$router.push({path: '/login'})
+      }
     })
+  },
+  mounted () {
   }
 }
 </script>

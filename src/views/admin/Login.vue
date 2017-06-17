@@ -60,8 +60,10 @@ export default {
       }
       this.$http.post(url, data).then(res => {
         alert(res.data)
-        localStorage.setItem('login', true)
-        this.$router.push({path: '/'})
+        if (res.data === 'success') {
+          localStorage.setItem('login', true)
+          this.$router.push({path: '/'})
+        }
       }, res => {
         console.log(res)
       })

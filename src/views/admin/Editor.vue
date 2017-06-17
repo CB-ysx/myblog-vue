@@ -79,7 +79,7 @@ export default {
     publishArticle: function () {
       console.log('publish')
       if (this.id) { // update article by id
-        this.$http.put(url + '/' + this.id, { title: this.title, contents: this.contents }).then(res => {
+        this.$http.put(url + '/' + this.id, { title: this.title, contents: this.contents }, {emulateJSON: true}).then(res => {
           console.log(res)
         }, res => {
           console.log(res)
@@ -139,10 +139,13 @@ export default {
     if (id) {
       // Get the Article by id
       this.$http.get(url + '/' + id).then(res => {
-        this.title = res.data.title
-        this.contents = res.data.contents
+        this.title = res.data[0].title
+        this.contents = res.data[0].contents
       }, res => {
-        console.log(res)
+        console.log(res.status)
+        if (res.status === 401) {
+          this.$router.push({path: '/login'})
+        }
       })
     }
   }

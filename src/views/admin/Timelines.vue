@@ -32,7 +32,7 @@
         <li class="item" v-for="(item, index) in sorted" @dblclick="edit(item.id, index)" :class="{ 'list-none': editId === item.id }">
           <!-- show -->
           <div class="show-box" v-if="editId !== item.id">
-            <strong>{{ item.date }}</strong>
+            <strong>{{ item.date | getDateString }}</strong>
             <span class="item-text">
               {{ item.title }}
             </span>
@@ -85,6 +85,16 @@ export default {
   components: {
     Datepicker
   },
+  filters: {
+    getDateString (str) {
+      let date = new Date(str)
+      let month = date.getMonth() + 1 + ''
+      month = month.length > 1 ? month : '0' + month
+      let day = date.getDate() + ''
+      day = day.length > 1 ? day : '0' + day
+      return `${date.getFullYear()}-${month}-${day}`
+    }
+  },
   methods: {
     compare: function (obj1, obj2) {
       let val1 = new Date(obj1.date)
@@ -113,9 +123,14 @@ export default {
         return
       }
       // Add a Timeline data
-      this.$http.post(url).then(res => {
+      this.$http.post(url, {date: time, title: content}).then(res => {
         console.log(res.data)
-        // this.timeLines.push({ id: res.data.id date: time, title: content })
+        if (res.data === 'added') {
+          alert('添加成功!')
+          // append the data
+        } else {
+          alert('添加失败！\n' + JSON.stringify(res.data))
+        }
       }, res => {
         console.log(res)
       })
@@ -142,23 +157,33 @@ export default {
         return
       }
       // Update a Timeline data
-      this.$http.put(url + '/' + this.editId).then(res => {
+      this.$http.put(url + '/' + this.editId, {date: time, title: content}).then(res => {
         console.log(res.data)
-        // update components data
-        this.timeLines[this.dataIndex].date = time
-        this.timeLines[this.dataIndex].title = content
+        if (res.data === 'updated') {
+          alert('更新成功！')
+          // update components data
+          this.timeLines[this.dataIndex].date = time
+          this.timeLines[this.dataIndex].title = content
+          this.editId = ''
+        } else {
+          alert('更新失败！\n' + JSON.stringify(res.data))
+        }
       }, res => {
         console.log(res)
       })
-      this.editId = ''
     },
     del: function () {
       console.log('delete ' + this.editId)
       // Delete a Timeline data
       this.$http.delete(url + '/' + this.editId).then(res => {
         console.log(res.data)
-        // update components data
-        this.timeLines.splice(this.dataIndex, 1)
+        if (res.data === 'deleted') {
+          alert('删除成功！')
+          // update components data
+          this.timeLines.splice(this.dataIndex, 1)
+        } else {
+          alert('删除失败！\n' + JSON.stringify(res.data))
+        }
       }, res => {
         console.log(res)
       })
@@ -172,15 +197,18 @@ export default {
   },
   beforeCreate () {
     url = window.blogUrl.timeline
-  },
-  mounted () {
     // Get the Timelines List data
     this.$http.get(url).then(res => {
       console.log(res.data)
       this.timeLines = res.data
     }, res => {
-      console.log(res)
+      console.log(res.status)
+      if (res.status === 401) {
+        this.$router.push({path: '/login'})
+      }
     })
+  },
+  mounted () {
   }
 }
 </script>
