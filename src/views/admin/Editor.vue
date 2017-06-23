@@ -72,7 +72,7 @@ export default {
       let chinese = word.match(/[\u4e00-\u9fa5]/g) ? word.match(/[\u4e00-\u9fa5]/g).length : 0
       let english = word.match(/[\w]+/g) ? word.match(/[\w]+/g).length : 0
       this.count.word = chinese + english
-      this.count.lines = word.match(/\r?\n|\r/g).length
+      this.count.lines = word.match(/\r?\n|\r/g) ? word.match(/\r?\n|\r/g).length : 0
     }
   },
   methods: {
