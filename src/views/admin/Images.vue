@@ -108,6 +108,7 @@ export default {
         // parallelUploads: 2,
         // uploadMultiple: true,
         autoProcessQueue: false,
+        withCredentials: true,
         acceptedFiles: 'image/*'
       },
       files: 0,

@@ -113,6 +113,7 @@ export default {
         // uploadMultiple: true,
         thumbnailWidth: 160,
         thumbnailHeight: 160,
+        withCredentials: true,
         acceptedFiles: 'image/*'
       },
       files: []
