@@ -59,8 +59,9 @@ export default {
         password: this.password
       }
       this.$http.post(url, data).then(res => {
-        alert(res.data)
-        if (res.data === 'success') {
+        console.log(res)
+        alert(res.data.msg)
+        if (res.data.result === 1) {
           localStorage.setItem('login', true)
           this.$router.push({path: '/'})
         }
@@ -71,7 +72,7 @@ export default {
   },
   beforeCreate () {
     this.$http.get(window.blogUrl.status).then(res => {
-      if (res.data === '0') {
+      if (res.data.result === 0) {
         this.$router.push({ path: '/signup' })
       }
     }, res => {

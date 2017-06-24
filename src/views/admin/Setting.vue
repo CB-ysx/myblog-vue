@@ -181,10 +181,17 @@ export default {
       }
       // Update a pay image data
       this.$http.put(payUrl + '/' + this.editPayImgId, { title: this.editPayImgVal }).then(res => {
-        console.log(res.data)
-        this.payImages[this.payImageMenu.index].title = this.editPayImgVal
-        // hide
-        this.editPayImgId = ''
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
+          this.payImages[this.payImageMenu.index].title = this.editPayImgVal
+          // hide
+          this.editPayImgId = ''
+        } else if (resData.result === 0) {
+          // hide
+          this.editPayImgId = ''
+        }
       }, res => {
         console.log(res)
       })
@@ -205,10 +212,14 @@ export default {
         }
         // modify password
         this.$http.put(modifyUrl, { oPassword: this.oPassword, nPassword: this.nPassword }).then(res => {
-          console.log(res.data)
-          this.payImages[this.payImageMenu.index].title = this.editPayImgVal
-          // hide
-          this.editPayImgId = ''
+          let resData = res.data
+          console.log(resData)
+          alert(resData.msg)
+          if (resData.result === 1) {
+            this.oPassword = ''
+            this.nPassword = ''
+            this.vPassword = ''
+          }
         }, res => {
           console.log(res)
         })

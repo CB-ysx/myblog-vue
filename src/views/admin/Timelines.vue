@@ -104,10 +104,6 @@ export default {
     edit: function (id, index) {
       this.editId = id
       this.dataIndex = index
-      // // focus on the content input
-      // this.$nextTick(function () {
-      //   this.$refs.editContent[0].focus()
-      // })
     },
     add: function () {
       let time = this.$refs.date.formattedValue
@@ -124,12 +120,12 @@ export default {
       }
       // Add a Timeline data
       this.$http.post(url, {date: time, title: content}).then(res => {
-        console.log(res.data)
-        if (res.data === 'added') {
-          alert('添加成功!')
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
           // append the data
-        } else {
-          alert('添加失败！\n' + JSON.stringify(res.data))
+          this.timeLines.push({ id: resData.id, date: time, title: content })
         }
       }, res => {
         console.log(res)
@@ -158,15 +154,16 @@ export default {
       }
       // Update a Timeline data
       this.$http.put(url + '/' + this.editId, {date: time, title: content}).then(res => {
-        console.log(res.data)
-        if (res.data === 'updated') {
-          alert('更新成功！')
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
           // update components data
           this.timeLines[this.dataIndex].date = time
           this.timeLines[this.dataIndex].title = content
           this.editId = ''
-        } else {
-          alert('更新失败！\n' + JSON.stringify(res.data))
+        } else if (resData.result === 0) {
+          this.editId = ''
         }
       }, res => {
         console.log(res)
@@ -176,13 +173,12 @@ export default {
       console.log('delete ' + this.editId)
       // Delete a Timeline data
       this.$http.delete(url + '/' + this.editId).then(res => {
-        console.log(res.data)
-        if (res.data === 'deleted') {
-          alert('删除成功！')
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
           // update components data
           this.timeLines.splice(this.dataIndex, 1)
-        } else {
-          alert('删除失败！\n' + JSON.stringify(res.data))
         }
       }, res => {
         console.log(res)

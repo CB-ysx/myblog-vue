@@ -72,8 +72,11 @@ export default {
           password: this.password
         }
         this.$http.post(url, data, {emulateJSON: true}).then(res => {
-          alert(res.data)
-          this.$router.push({path: '/login'})
+          let resData = res.data
+          alert(resData.msg)
+          if (resData.result === 1) {
+            this.$router.push({path: '/login'})
+          }
         }, res => {
           console.log(res)
         })

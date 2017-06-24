@@ -9,7 +9,7 @@
         {{ title }}
       </h3>
       <div class="btn-box">
-        <button type="button" ref="save" class="btn success" @click="" name="save">Save</button>
+        <button type="button" ref="save" class="btn success" @click="saveIntro" name="save">Save</button>
       </div>
     </header>
     <!-- contents -->
@@ -23,7 +23,7 @@
       <div class="input-field">
         <h4>About Me:</h4>
         <div class="input-area">
-          <textarea>{{ intro }}</textarea>
+          <textarea v-model="intro"></textarea>
         </div>
       </div>
       <!-- skills -->
@@ -181,15 +181,42 @@ export default {
       window.removeEventListener('keydown', this.preventScroll)
       this.skillMenu = ''
     },
+    // save intro
+    saveIntro: function () {
+      console.log(this.intro)
+      console.log('save intro')
+      // trim the string
+      let motto = (this.motto || '').replace(/(^\s*)|(\s*$)/g, '')
+      let intro = (this.intro || '').replace(/(^\s*)|(\s*$)/g, '')
+      let data = {}
+      if (motto.length) {
+        data['motto'] = motto || ''
+      }
+      if (intro.length) {
+        data['intro'] = intro || ''
+      }
+      // Save profile data
+      this.$http.put(url, data).then(res => {
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+      }, res => {
+        console.log(res)
+      })
+    },
     // Skill
     addSkill: function () {
       console.log(this.addSkillVal)
       // Add a skill data
       this.$http.post(skillUrl, {name: this.addSkillVal}).then(res => {
-        console.log(res.data)
-        this.data.skills.push({id: res.data.id, name: this.addSkillVal})
-        // hide
-        this.toAddSkill = ''
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
+          this.data.skills.push({id: resData.id, name: this.addSkillVal})
+          // hide
+          this.toAddSkill = ''
+        }
       }, res => {
         console.log(res)
       })
@@ -203,20 +230,31 @@ export default {
       }
       // Update a skill data
       this.$http.put(skillUrl + '/' + this.editSkillId, {name: this.editSkillVal}).then(res => {
-        console.log(res.data)
-        this.data.skills[this.skillMenu.index].name = this.editSkillVal
-        // hide
-        this.editSkillId = ''
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
+          this.data.skills[this.skillMenu.index].name = this.editSkillVal
+          // hide
+          this.editSkillId = ''
+        } else if (resData.result === 0) {
+          // hide
+          this.editSkillId = ''
+        }
       }, res => {
         console.log(res)
       })
     },
     delSkill: function (id) {
-      console.log('delete' + id)
+      console.log('delete: ' + id)
       // Delete a skill data
       this.$http.delete(skillUrl + '/' + id).then(res => {
-        console.log(res.data)
-        this.data.skills.splice(this.skillMenu.index, 1)
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
+          this.data.skills.splice(this.skillMenu.index, 1)
+        }
       }, res => {
         console.log(res)
       })
@@ -243,9 +281,14 @@ export default {
       }
       // Add a Contact data
       this.$http.post(contUrl, {name: name, alias: alias, url: contactUrl}).then(res => {
-        console.log(res.data)
-        this.data.contacts.push({ id: res.data.id, name: name, alias: alias, url: contactUrl })
-        this.toAddCont = ''
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
+          this.data.contacts.push({ id: resData.id, name: name, alias: alias, url: contactUrl })
+          // hide
+          this.toAddCont = ''
+        }
       }, res => {
         console.log(res)
       })
@@ -271,30 +314,39 @@ export default {
       }
       // Update a Contact data
       this.$http.put(contUrl + '/' + this.editContactId, {name: name, alias: alias, url: contactUrl}).then(res => {
-        console.log(res.data)
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
         // update components data
-        // this.timeLines[this.dataIndex].date = time
-        // this.timeLines[this.dataIndex].title = content
-        console.log(this.editContact)
-        console.log(this.data.contacts[this.editContact].name)
-        this.data.contacts[this.editContact].name = name
-        this.data.contacts[this.editContact].alias = alias
-        this.data.contacts[this.editContact].url = contactUrl
-        // hide input
-        this.editContact = ''
+        if (resData.result === 1) {
+          console.log(this.editContact)
+          console.log(this.data.contacts[this.editContact].name)
+          this.data.contacts[this.editContact].name = name
+          this.data.contacts[this.editContact].alias = alias
+          this.data.contacts[this.editContact].url = contactUrl
+          // hide input
+          this.editContact = ''
+        } else if (resData.result === 0) {
+          // hide input
+          this.editContact = ''
+        }
       }, res => {
         console.log(res)
       })
     },
     delContact: function () {
-      console.log('delete ' + this.editContactId)
+      console.log('delete: ' + this.editContactId)
       // Delete a Contact data
       this.$http.delete(contUrl + '/' + this.editContactId).then(res => {
-        console.log(res.data)
-        // update components data
-        this.data.contacts.splice(this.editContact, 1)
-        // hide
-        this.editContact = ''
+        let resData = res.data
+        console.log(resData)
+        alert(resData.msg)
+        if (resData.result === 1) {
+          // update components data
+          this.data.contacts.splice(this.editContact, 1)
+          // hide
+          this.editContact = ''
+        }
       }, res => {
         console.log(res)
       })
@@ -310,7 +362,7 @@ export default {
     this.$http.get(url).then(res => {
       console.log(res.data)
       this.data = res.data
-      this.motto = res.data.title
+      this.motto = res.data.motto
       this.intro = res.data.intro
     }, res => {
       console.log(res.status)

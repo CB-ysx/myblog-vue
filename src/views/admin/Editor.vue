@@ -79,13 +79,15 @@ export default {
     publishArticle: function () {
       console.log('publish')
       if (this.id) { // update article by id
-        this.$http.put(url + '/' + this.id, { title: this.title, contents: this.contents }, {emulateJSON: true}).then(res => {
+        this.$http.put(url + '/' + this.id, { title: this.title, contents: this.contents, status: 1 }, {emulateJSON: true}).then(res => {
+          alert(res.data.msg)
           console.log(res)
         }, res => {
           console.log(res)
         })
       } else { // add a article
-        this.$http.post(url, { title: this.title, contents: this.contents }).then(res => {
+        this.$http.post(url, { title: this.title, contents: this.contents, status: 1 }).then(res => {
+          alert(res.data.msg)
           console.log(res)
         }, res => {
           console.log(res)
@@ -95,12 +97,14 @@ export default {
     saveArticle: function () {
       if (this.id) { // update article by id
         this.$http.put(url + '/' + this.id, { title: this.title, contents: this.contents, status: 0 }).then(res => {
+          alert(res.data.msg)
           console.log(res)
         }, res => {
           console.log(res)
         })
       } else { // add a article
         this.$http.post(url, { title: this.title, contents: this.contents, status: 0 }).then(res => {
+          alert(res.data.msg)
           console.log(res)
         }, res => {
           console.log(res)
