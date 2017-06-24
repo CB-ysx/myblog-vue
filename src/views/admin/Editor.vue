@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Preview from '@/components/Preview'
+import Preview from '@/components/PreviewEdit'
 
 let url = ''
 

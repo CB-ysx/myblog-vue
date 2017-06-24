@@ -93,7 +93,7 @@ export default {
             // img.src = '123'
             // uploads[i].nextSibling.appendChild(img)
             // uploads[i].remove()
-            this.context = this.replaceByIndex(this.contents, /!\[(\w|\s)*\]\(\)/g, i, `![${filename}](${res.url})`)
+            this.context = this.replaceByIndex(this.contents, /!\[(\w|\s)*\]\(\)/g, i, `![${filename}](${res.data.url})`)
           }, res => {
             console.log(res)
           })
