@@ -25,12 +25,10 @@
       </section>
       <footer class="nav-footer">
         <!-- 退出 -->
-        <div class="logout">
-          <a href="#">
-            <svg class="icon logout-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1403">
-              <path d="M796.8 64H544c-19.2 0-32 12.8-32 32s12.8 32 32 32h256v768H544c-19.2 0-32 12.8-32 32s12.8 32 32 32h252.8c38.4 0 67.2-28.8 67.2-64V128c0-35.2-32-64-67.2-64z m-528 480H640c19.2 0 32-12.8 32-32s-12.8-32-32-32H268.8l137.6-137.6c12.8-12.8 12.8-32 0-44.8s-32-12.8-44.8 0l-192 192c-3.2 3.2-6.4 6.4-6.4 9.6-3.2 6.4-3.2 16 0 25.6 3.2 3.2 3.2 6.4 6.4 9.6l192 192c6.4 6.4 16 9.6 22.4 9.6s16-3.2 22.4-9.6c12.8-12.8 12.8-32 0-44.8L268.8 544z" p-id="1736"></path>
-            </svg>
-          </a>
+        <div class="logout" @click="logout">
+          <svg class="icon logout-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1403">
+            <path d="M796.8 64H544c-19.2 0-32 12.8-32 32s12.8 32 32 32h256v768H544c-19.2 0-32 12.8-32 32s12.8 32 32 32h252.8c38.4 0 67.2-28.8 67.2-64V128c0-35.2-32-64-67.2-64z m-528 480H640c19.2 0 32-12.8 32-32s-12.8-32-32-32H268.8l137.6-137.6c12.8-12.8 12.8-32 0-44.8s-32-12.8-44.8 0l-192 192c-3.2 3.2-6.4 6.4-6.4 9.6-3.2 6.4-3.2 16 0 25.6 3.2 3.2 3.2 6.4 6.4 9.6l192 192c6.4 6.4 16 9.6 22.4 9.6s16-3.2 22.4-9.6c12.8-12.8 12.8-32 0-44.8L268.8 544z" p-id="1736"></path>
+          </svg>
         </div>
         <!-- 收起、展开侧边栏 -->
         <div class="hid-menu" @click="menuToggle">
@@ -48,6 +46,7 @@
 </template>
 
 <script>
+let url = ''
 export default {
   name: 'admin',
   data () {
@@ -67,9 +66,10 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
+    // url = window.blogUrl.logout
     let auth = localStorage.getItem('login')
     console.log(auth)
-    if (auth === 'false') {
+    if (auth === 'false' || !auth) {
       next({ path: '/login' })
     } else {
       console.log('else')
@@ -79,9 +79,21 @@ export default {
   methods: {
     menuToggle () {
       this.hidMenu = !this.hidMenu
+    },
+    logout () {
+      this.$http.get(url).then(res => {
+        console.log(url)
+        if (res.status === 200) {
+          localStorage.removeItem('login')
+          this.$router.push({path: '/login'})
+        }
+      }, res => {
+        console.log(res.status)
+      })
     }
   },
   mounted () {
+    url = window.blogUrl.logout
     // console.log(this.$el.classList)
   }
 }
