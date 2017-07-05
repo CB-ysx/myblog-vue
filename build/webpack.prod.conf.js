@@ -52,6 +52,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         ? 'index.html'
         : config.build.index,
       template: 'index.html',
+      excludeChunks: ['admin'],
       inject: true,
       minify: {
         removeComments: true,
@@ -69,6 +70,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         : config.build.admin,
       template: 'admin.html',
       inject: true,
+      excludeChunks: ['app'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,

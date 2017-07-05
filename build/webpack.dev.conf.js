@@ -29,12 +29,14 @@ module.exports = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.html',
       chunks: ['app'],
+      // excludeChunks: ['admin', 'vue', 'vue-resource'],
       inject: true
     }),
     new HtmlWebpackPlugin({ // Manage entry
       filename: 'admin.html',
       template: 'admin.html',
       chunks: ['admin'],
+      // excludeChunks: ['app', 'vue', 'vue-resource'],
       inject: true
     }),
     new FriendlyErrorsPlugin()
