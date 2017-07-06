@@ -8,6 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var WebpackCdnPlugin = require('webpack-cdn-plugin')
 
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -80,6 +81,27 @@ var webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
+    }),
+    // CDN plugin for some library
+    new WebpackCdnPlugin({
+      modules: [
+        {
+          name: 'vue',
+          var: 'Vue'
+        },
+        {
+          name: 'vue-resource',
+          var: 'VueResource'
+        },
+        {
+          name: 'vue-router',
+          var: 'VueRouter'
+        },
+        {
+          name: 'marked'
+        }
+      ],
+      prodUrl: '//cdn.bootcss.com/:name/:version/:name.min.js'
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
