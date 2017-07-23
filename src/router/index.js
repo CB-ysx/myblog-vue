@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home' // @表示.. ，在webpack中进行了处理
-import TimeLine from '@/views/TimeLine'
-import Images from '@/views/Images'
-import About from '@/views/About'
-import Article from '@/views/Article'
+// dynamic import module
+const Article = resolve => require.ensure([], () => resolve(require('@/views/Article.vue')), 'Article')
+const TimeLine = resolve => require.ensure([], () => resolve(require('@/views/TimeLine.vue')), 'TimeLine')
+const Images = resolve => require.ensure([], () => resolve(require('@/views/Images.vue')), 'Images')
+const About = resolve => require.ensure([], () => resolve(require('@/views/About.vue')), 'About')
 
 Vue.use(Router)
 

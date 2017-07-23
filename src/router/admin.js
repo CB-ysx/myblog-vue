@@ -2,13 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Admin from '@/views/admin/Admin'
 import Login from '@/views/admin/Login'
-import Signup from '@/views/admin/Signup'
-import Articles from '@/views/admin/Articles'
-import Editor from '@/views/admin/Editor'
-import Timelines from '@/views/admin/Timelines'
-import Images from '@/views/admin/Images'
-import Profile from '@/views/admin/Profile'
-import Setting from '@/views/admin/Setting'
+// dynamic import module
+const Signup = resolve => require.ensure([], () => resolve(require('@/views/admin/Signup.vue')), 'Signup')
+const Articles = resolve => require.ensure([], () => resolve(require('@/views/admin/Articles.vue')), 'Articles')
+const Editor = resolve => require.ensure([], () => resolve(require('@/views/admin/Editor.vue')), 'Editor')
+const Timelines = resolve => require.ensure([], () => resolve(require('@/views/admin/Timelines.vue')), 'Timelines')
+const Images = resolve => require.ensure([], () => resolve(require('@/views/admin/Images.vue')), 'Images')
+const Profile = resolve => require.ensure([], () => resolve(require('@/views/admin/Profile.vue')), 'Profile')
+const Setting = resolve => require.ensure([], () => resolve(require('@/views/admin/Setting.vue')), 'Setting')
 
 Vue.use(Router)
 
