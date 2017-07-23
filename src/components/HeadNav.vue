@@ -16,7 +16,7 @@ export default {
   name: 'head-nav',
   data () {
     return {
-      title: 'joris\' blog',
+      title: 'Joris\' blog',
       items: [
         {
           name: 'Home'

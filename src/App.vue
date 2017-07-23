@@ -2,7 +2,7 @@
   <div id="app">
     <head-nav></head-nav>
     <router-view></router-view>
-    <foot></foot>
+    <foot ICP="粤ICP备xxxxxx号" ICPUrl="#"></foot>
   </div>
 </template>
 

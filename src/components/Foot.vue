@@ -4,7 +4,8 @@
       Copyright © 2017{{dateNow > 2017 ? ' - ' + dateNow : ''}} <a href="#">joris' blog</a>
     </p>
     <p>
-      粤ICP备xxxxxx号
+      <!-- 粤ICP备xxxxxx号 -->
+      <a :href="ICPUrl">{{ ICP }}</a>
     </p>
   </footer>
 </template>
@@ -16,6 +17,7 @@ export default {
     return {
     }
   },
+  props: ['ICP', 'ICPUrl'],
   computed: {
     dateNow: function () {
       let date = new Date()
