@@ -2,16 +2,16 @@
   <div class="about container content">
     <div class="main">
       <!-- <h4>{{ state.name }} </h4><br> -->
-      <h5 class="motto">{{ state.title }}</h5>
+      <h5 class="motto">{{ state.motto }}</h5>
       <h4 class="border-shadow">ABOUT ME</h4>
       {{ state.intro }} <br>
       <h4 class="border-shadow">SKILLS</h4>
       <div class="skills-box">
-        <span class="tag" v-for="skill in state.skills">{{ skill.skill }}</span>
+        <span class="tag" v-for="skill in state.skills">{{ skill.name }}</span>
       </div>
       <h4 class="border-shadow">CONTACT</h4>
       <ul class="contact">
-        <li v-for="(contact, index) in state.contact">{{ contact.name }}: <a class="underline" :href="contact.url">{{ contact.alias }}</a></li>
+        <li v-for="(contact, index) in state.contacts">{{ contact.name }}: <a class="underline" :href="contact.url">{{ contact.alias }}</a></li>
       </ul>
 
 
@@ -25,11 +25,10 @@ export default {
   data () {
     return {
       state: {
-        name: '',
-        title: '',
+        motto: '',
         intro: '',
         skills: '',
-        contact: ''
+        contacts: ''
       }
     }
   },
