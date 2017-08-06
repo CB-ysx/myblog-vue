@@ -260,12 +260,12 @@ const timeLine = Mock.mock({
 const about = Mock.mock({
   'data': {
     'name': '@cname',
-    'title': '@ctitle(20, 50)',
+    'motto': '@ctitle(20, 50)',
     'skills|6-20': [{
       'id|+1': 1,
-      'skill': '@word(3,10)'
+      'name': '@word(3,10)'
     }],
-    'contact|2-6': [{
+    'contacts|2-6': [{
       'id|+1': 1,
       'name|+1': [
         'Facebook',

@@ -20,6 +20,7 @@ module.exports = {
     'no-tabs': 'off',
     'operator-linebreak': ["error", "before"],
     'object-property-newline': 0,
+    'no-extra-boolean-cast': 0,
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
