@@ -1,10 +1,13 @@
 <template>
   <div class="home container content">
     <div class="main">
+      <h2 v-if="showTips" class="text-center">
+        There is no article yet！
+      </h2>
       <section class="text-box" v-for="article in articles">
         <router-link :to="'/Article/'+ article.id">
           <h2><span class="title">{{article.title}}</span></h2>
-          <span class="date">{{ article.created_at | toDateString }}</span>
+          <span class="date">{{ article.created_at | toDateString(true) }}</span>
           <section class="text">
             {{article.contents}}
           </section>
@@ -22,7 +25,8 @@ export default {
   data () {
     return {
       title: 'this is a home page',
-      articles: []
+      articles: [],
+      showTips: false
     }
   },
   filters: {
@@ -31,6 +35,7 @@ export default {
   mounted () {
     this.$http.get(window.homeUrl.article).then(res => {
       this.articles = res.data
+      this.showTips = !this.articles.length
     }, res => {
       console.log(res)
     })
@@ -46,6 +51,9 @@ export default {
   }
   .content{
     padding-top: 60px;
+  }
+  .text-center{
+    text-align: center;
   }
   .main{
     padding: 1em 0 2em;

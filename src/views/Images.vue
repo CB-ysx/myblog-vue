@@ -1,7 +1,10 @@
 <template>
   <div class="images container content">
     <div class="main">
-      <ul>
+      <h2 v-if="showTips" class="text-center">
+        There is no images yet！
+      </h2>
+      <ul v-if="images.length">
         <li v-for="(img, index) in images">
           <div class="img-box" :data-index="index" @click="showImage($event)" :style="'transform:rotate(' + getRotate() + 'deg)'">
           <!-- <div class="img-box" :style="{'transform':'rotate(' + getRotate() + 'deg)'}"> -->
@@ -34,7 +37,8 @@ export default {
     return {
       images: {},
       loadedImg: false,
-      showCurrent: null
+      showCurrent: null,
+      showTips: false
     }
   },
   methods: {
@@ -64,6 +68,7 @@ export default {
     this.$http.get(window.homeUrl.image).then(res => {
       console.log(res.data)
       this.images = res.data
+      this.showTips = !this.images.length
     }, res => {
       console.log(res)
     })

@@ -32,7 +32,7 @@
         <li class="item" v-for="(item, index) in sorted" @dblclick="edit(item.id, index)" :class="{ 'list-none': editId === item.id }">
           <!-- show -->
           <div class="show-box" v-if="editId !== item.id">
-            <strong>{{ item.date | getDateString }}</strong>
+            <strong>{{ item.date | toDateString }}</strong>
             <span class="item-text">
               {{ item.title }}
             </span>
@@ -67,6 +67,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker'
+import { toDateString } from '@/filters/toDateString'
 
 let url = ''
 export default {
@@ -86,14 +87,7 @@ export default {
     Datepicker
   },
   filters: {
-    getDateString (str) {
-      let date = new Date(str)
-      let month = date.getMonth() + 1 + ''
-      month = month.length > 1 ? month : '0' + month
-      let day = date.getDate() + ''
-      day = day.length > 1 ? day : '0' + day
-      return `${date.getFullYear()}-${month}-${day}`
-    }
+    toDateString
   },
   methods: {
     compare: function (obj1, obj2) {

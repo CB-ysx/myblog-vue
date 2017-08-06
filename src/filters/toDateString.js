@@ -1,4 +1,4 @@
-export function toDateString (val) {
+export function toDateString (val, needTime) {
   let timeStr = new Date(val)
 
   let year = timeStr.getFullYear()
@@ -8,6 +8,7 @@ export function toDateString (val) {
   date = date.length > 1 ? date : '0' + date
 
   let time = timeStr.toTimeString().split(' ')[0]
+  let dateStr = `${year}-${month}-${date}`
 
-  return `${year}-${month}-${date} ${time}`
+  return !!needTime ? `${dateStr} ${time}` : dateStr
 }
